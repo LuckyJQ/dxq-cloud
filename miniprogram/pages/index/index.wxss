@@ -1,0 +1,36 @@
+.index-icon {
+  font-size: 40rpx;
+  margin-left: 20rpx;
+  margin-top: 6rpx;
+}
+
+.index-icon-text {
+  padding-left: 12rpx;
+  padding-top: 6rpx;
+  font-size: 28rpx;
+}
+
+.buttons {
+  padding: 80rpx;
+  padding-top: 60rpx;
+}
+
+.button-item {
+  position: relative;
+  border-radius: 6rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  width: 100%;
+  margin-bottom: 40rpx;
+}
+
+.button-icon {
+  position: absolute;
+  left: 30rpx;
+  line-height: 40rpx;
+  font-size: 36rpx;
+}
+
+
+
+

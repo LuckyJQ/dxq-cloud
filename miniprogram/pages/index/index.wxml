@@ -1,0 +1,36 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" bindtap="selectSchool" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <text class="icon-locationfill index-icon"></text>
+      <text class="index-icon-text">{{school}}</text>
+    </view>
+  </view>
+
+  <swiper class="card-swiper {{DotStyle?'round-dot':'square-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#AE81F7">
+    <swiper-item wx:for="{{4}}" wx:key class="{{cardCur==index?'cur':''}}">
+      <view class='bg-img shadow-blur' style="background-image:url(https://image.weilanwl.com/img/4x3-{{index+1}}.jpg)"></view>
+    </swiper-item>
+  </swiper>
+
+  <van-notice-bar left-icon="http://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png" text="通知通知通知通知通知通知通知通知通知通知通知通知通知通知" />
+
+  <view class="buttons">
+    <view class="button-item text-center" bindtap="toLost" style="box-shadow: 0 0 20rpx rgba(234, 50, 35, 0.5);">
+      <text class="icon-roundclose button-icon" style="color:rgba(234, 50, 35, 0.8);"></text>
+      <text>我丢了</text>
+    </view>
+    <view class="button-item text-center" bindtap="toFind" style="box-shadow: 0 0 20rpx rgba(76, 173, 248, 0.5);">
+      <text class="icon-roundcheck button-icon" style="color:rgba(76, 173, 248, 0.8)"></text>
+      <text>我捡到了</text>
+    </view>
+    <view class="button-item text-center" style="box-shadow: 0 0 20rpx rgba(251,189,8, 0.5);">
+      <text class="icon-calendar button-icon" style="color:rgba(251,189,8, 0.8)"></text>
+      <text>周周报</text>
+    </view>
+    <view class="button-item text-center" style="margin-bottom:0;box-shadow: 0 0 20rpx rgba(57,181,74, 0.5);">
+      <text class="icon-notice button-icon" style="color:rgba(57,181,74, 0.8)"></text>
+      <text>敬请期待</text>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,23 @@
+page {
+  background-color: #F5F5F5;
+}
+
+.index-icon-text {
+  margin-left: 20rpx;
+  font-size: 16px;
+}
+
+.upload-img-button {
+  width:200rpx;
+  height:200rpx;
+  text-align:center;
+  font-size:56rpx;
+  line-height:200rpx;
+  color:#ccc
+}
+
+.test {
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+}

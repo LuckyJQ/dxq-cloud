@@ -1,0 +1,9 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 申请管理员
+      </navigator>
+    </view>
+  </view>
+</view>

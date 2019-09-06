@@ -1,0 +1,9 @@
+.bottom-logo {
+  width: 160rpx;
+  height: auto;
+  position: fixed;
+  z-index: -100;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -80rpx;
+}

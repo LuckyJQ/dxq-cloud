@@ -1,0 +1,38 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 我的资料
+      </navigator>
+    </view>
+  </view>
+
+  <view class="solid-bottom">
+    <view class="cu-form-group">
+      <view class='title'>姓名</view>
+      <input placeholder="用于向您推送与您相关的失物" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>学院</view>
+      <input placeholder="您所在的学院" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>班级</view>
+      <input placeholder="您所在班级" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>学号</view>
+      <input placeholder="用于向您推送您的一卡通" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>联系方式</view>
+      <input placeholder="用于自动填写联系方式" class='radius' name='input'></input>
+    </view>
+  </view>
+
+  <view class="padding-xl flex flex-direction">
+    <button class='cu-btn bg-theme lg'>保存</button>
+  </view>
+
+
+</view>

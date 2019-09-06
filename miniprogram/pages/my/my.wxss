@@ -1,0 +1,12 @@
+page {
+  background-color: #F5F5F5;
+}
+
+.bottom-logo {
+  width: 160rpx;
+  height: auto;
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -80rpx;
+}

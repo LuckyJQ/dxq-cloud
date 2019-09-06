@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-tab": "vant-weapp/tab",
+    "van-tabs": "vant-weapp/tabs",
+    "add-btn": "/components/add-button/cc-mainbutton"
+  }
+}

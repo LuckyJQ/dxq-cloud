@@ -1,0 +1,27 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 选择高校
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-bar search bg-theme">
+    <view class='search-form round'>
+      <text class="icon-search"></text>
+      <input type="text" bindinput="onSearch" placeholder="下方没有，请搜索高校" confirm-type="search"></input>
+    </view>
+  </view>
+
+  <view class="cu-list menu solid-bottom">
+    <view class="cu-item arrow" wx:for="{{schools}}">
+      <view class='content' bindtap='selectSchool' data-school="{{item.school_name}}" data-school_id="{{item.school_id}}">
+        <text>{{item.school_name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
+
+</view>

@@ -1,0 +1,29 @@
+<view>
+  <view class="cu-custom solid-bottom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 我的发布
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-list menu menu-avatar solid-bottom">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}} published-item" wx:for="{{4}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}">
+      <view class="text-info">
+        <view class="text-left">
+          <view class='cu-tag bg-theme radius sm margin-right-sm'>电子</view>
+          <text>丢失一部手机</text>
+        </view>
+        <text class="text-gray text-sm">三天前</text>
+      </view>
+      <view class='move'>
+        <view class='bg-grey' data-target="move-box-{{index}}" bindtap="getTop">置顶</view>
+        <view class="bg-red" data-target="move-box-{{index}}" bindtap="getDel">删除</view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+</view>

@@ -1,0 +1,52 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar+40}}px;padding-top:{{StatusBar}}px;">
+      <view class="cu-avatar xl round margin-left margin-right" style="background-image:url(https://image.weilanwl.com/img/square-4.jpg);"></view>
+      <text style="font-size:16px">小明同学</text>
+    </view>
+  </view>
+
+
+  <view class="cu-list menu" style="margin-top:120rpx;">
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getInfo'>
+        <text>我的资料</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getPublish'>
+        <text>我的发布</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-list menu  margin-top">
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getSystemInfo'>
+        <text>系统消息</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getHelp'>
+        <text>使用帮助</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getConcat'>
+        <text>联系我们</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-list menu  margin-top">
+    <view class="cu-item arrow">
+      <view class='content' bindtap='getAdmin'>
+        <text>申请区域管理员</text>
+      </view>
+    </view>
+  </view>
+
+  <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
+
+
+</view>

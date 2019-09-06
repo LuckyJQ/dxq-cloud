@@ -1,0 +1,30 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 详情
+      </navigator>
+    </view>
+  </view>
+
+  <view class="tab-container">
+    <view class="tab-top">
+      <view class='cu-tag bg-theme radius sm'>电子</view>
+      <text class="title">黑色的手机</text>
+      <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+    </view>
+    <text>我在田径场丢失了一个黑色华为手机，保护壳是透明的希望捡到同学还给我，谢谢！</text>
+    <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3518071394,1573821605&fm=26&gp=0.jpg" mode="widthFix"></image>
+    <view class="tab-bottom margin-top-sm">
+      <text>感谢金:5</text>
+      <text>丢失时间：2019.8.29</text>
+      <text>丢失地点：西电南校区丁香餐厅</text>
+      <text>联系方式:17691203856</text>
+    </view>
+
+    <view class="padding-xl flex flex-direction margin-top-xl">
+      <button class='cu-btn bg-theme lg'>分享</button>
+    </view>
+  </view>
+
+</view>

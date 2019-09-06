@@ -1,0 +1,42 @@
+.index-icon-text {
+  font-size: 16px;
+  margin-left: 20rpx;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.tab-container image {
+  width: 100%;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+
+.tab-container .tab-top {
+  align-items: center;
+  margin-bottom: 10rpx;
+  display: flex;
+}
+
+.tab-container .tab-top .title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 20rpx;
+  line-height: 48rpx;
+}
+
+.tab-bottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-bottom text {
+  line-height: 1.8;
+}
+

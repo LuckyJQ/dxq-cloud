@@ -1,0 +1,83 @@
+.index-icon-text {
+  font-size: 40rpx;
+}
+
+.logo {
+  margin-left: 20rpx;
+  width: 160rpx;
+  height: auto;
+}
+
+.my-search {
+  width: 340rpx;
+}
+
+.cu-custom .cu-bar {
+  padding: 0;
+}
+
+.my-tab {
+  display: flex;
+  background-color: #ae81f7;
+  color: white;
+  padding: 20rpx 0;
+}
+
+.my-tab-item {
+  flex: 1;
+  text-align: center;
+  line-height: 40rpx;
+  border-right: 1px solid white;
+}
+
+.blod {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tab-container {
+  padding: 40rpx;
+}
+
+.tab-container:nth-last-child(1){
+  margin-bottom: 60rpx;
+}
+
+.tab-container .tab-top {
+  align-items: center;
+  margin-bottom: 10rpx;
+  display: flex;
+}
+
+.tab-container .tab-top .title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 20rpx;
+  line-height: 48rpx;
+}
+
+.tab-mid {
+  display: flex;
+}
+
+.tab-mid image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 20rpx;
+}
+
+.test {
+  display: flex;
+  direction: colum;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.add-button {
+  width: 120rpx;
+  height: 120rpx;
+  position: fixed;
+  right: 40rpx;
+  bottom: 100rpx;
+  margin: 20rpx;
+}

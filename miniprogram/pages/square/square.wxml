@@ -1,0 +1,54 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <image src="/images/logo.png" class="logo" mode="widthFix"></image>
+      <view class="cu-bar search my-search">
+        <view class='search-form round'>
+          <text class="icon-search"></text>
+          <input type="text" placeholder="搜索失物" confirm-type="search"></input>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="my-tab">
+    <view class="my-tab-item blod">捡到的物品</view>
+    <view class="my-tab-item" style="border:none">丢失的物品</view>
+  </view>
+
+
+  <van-tabs color="#AE81F7" active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+      <view class="tab-container solid-bottom" wx:for="{{6}}" bindtap="getDetail">
+        <view class="tab-top">
+          <view class='cu-tag bg-theme radius sm'>电子</view>
+          <text class="title">黑色的手机</text>
+          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+        </view>
+        <view class="tab-mid">
+          <view>
+            <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3518071394,1573821605&fm=26&gp=0.jpg" mode="aspectFill"></image>
+          </view>
+          <view class="test">
+            <text>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</text>
+            <text style="flex:1;margin-right:10rpx;font-size:12px;" class="text-right text-gray">查看更多></text>
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="卡证">内容 2</van-tab>
+    <van-tab title="书本">内容 3</van-tab>
+    <van-tab title="电子">内容 4</van-tab>
+    <van-tab title="生活">内容 5</van-tab>
+    <van-tab title="其他">内容 6</van-tab>
+  </van-tabs>
+
+  <!-- <view bind:tap="onPublish" style="display:inline-block">
+    <button class='cu-btn icon-add bg-theme shadow add-button'></button>
+  </view> -->
+
+  <view class="add-button">
+    <add-btn bind:add="onAdd"></add-btn>
+  </view>
+
+</view>

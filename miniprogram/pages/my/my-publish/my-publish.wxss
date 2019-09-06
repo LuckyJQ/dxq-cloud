@@ -1,0 +1,16 @@
+.published-item {
+  padding-left: 20rpx !important;
+  height: 120rpx !important;
+}
+
+.text-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.text-info .text-left{
+  display: flex;
+  align-items: center;
+}

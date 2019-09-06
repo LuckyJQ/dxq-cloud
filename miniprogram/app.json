@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/square/detail/detail",
+    "pages/square/find/find",
+    "pages/square/lost/lost",
+    "pages/square/square",
+    "pages/my/my",
+    "pages/square/help/help",
+    "pages/my/my-info/my-info",
+    "pages/my/system-info/system-info",
+    "pages/my/my-publish/my-publish",
+    "pages/my/help/help",
+    "pages/my/concat/concat",
+    "pages/my/admin/admin",
+    "pages/index/school/school"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#AE81F7",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "/images/tabbar/index.png",
+        "selectedIconPath": "/images/tabbar/index@selected.png"
+      },
+      {
+        "text": "广场",
+        "pagePath": "pages/square/square",
+        "iconPath": "/images/tabbar/square.png",
+        "selectedIconPath": "/images/tabbar/square@selected.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/my/my",
+        "iconPath": "/images/tabbar/my.png",
+        "selectedIconPath": "/images/tabbar/my@selected.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

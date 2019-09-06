@@ -1,0 +1,125 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 我捡到了
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-form-group solid-bottom">
+    <view class='title'>物品分类</view>
+    <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <view class="picker">
+        {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+      </view>
+    </picker>
+  </view>
+
+  <view wx:if="{{multiIndex[0]===0}}">
+    <view class="cu-form-group">
+      <view class='title'>持卡人姓名</view>
+      <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>卡号</view>
+      <input placeholder="请输入卡号，系统会做隐私处理" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group top">
+      <view class='title'>详情描述</view>
+      <textarea placeholder="用于补充捡到物品的细节" maxlength="-1" placeholder-class='placeholder'></textarea>
+    </view>
+
+
+    <view class="cu-form-group margin-top">
+      <view class="flex-sub padding-tb">
+        <view class="solids upload-img-button">
+          <text class='icon-cameraadd'></text>
+        </view>
+      </view>
+      <view class="flex-twice test solids">
+        <view class="cu-form-group">
+          <view class='title'>是否贵重物品</view>
+          <switch class="purple"></switch>
+        </view>
+        <text class="padding-lr">贵重物品经管理员审核通过后将在广场中置顶显示，请勿滥用</text>
+      </view>
+    </view>
+
+    <view class="cu-form-group margin-top-sm">
+      <view class='title'>日期选择</view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>捡到地点</view>
+      <input placeholder="请出入捡到的地点" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>联系方式</view>
+      <input placeholder="请输入你的联系方式" class='radius' name='input'></input>
+    </view>
+
+    <view class="padding-xl flex flex-direction">
+      <button class='cu-btn bg-theme lg'>提交</button>
+    </view>
+  </view>
+
+
+  <view wx:if="{{multiIndex[0]===1}}">
+    <view class="cu-form-group">
+      <view class='title'>物品名称</view>
+      <input placeholder="请输入物品名称" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group top">
+      <view class='title'>详情描述</view>
+      <textarea placeholder="用于补充捡到物品的细节" maxlength="-1" placeholder-class='placeholder'></textarea>
+    </view>
+
+    <view class="cu-form-group margin-top">
+      <view class="flex-sub padding-tb">
+        <view class="solids upload-img-button">
+          <text class='icon-cameraadd'></text>
+        </view>
+      </view>
+      <view class="flex-twice test solids">
+        <view class="cu-form-group">
+          <view class='title'>是否贵重物品</view>
+          <switch class="purple"></switch>
+        </view>
+        <text class="padding-lr">贵重物品经管理员审核通过后将在广场中置顶显示，请勿滥用</text>
+      </view>
+    </view>
+
+
+    <view class="cu-form-group margin-top-sm">
+      <view class='title'>日期选择</view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>失主姓名</view>
+      <input placeholder="作为系统自匹配依据，可不填" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>捡到地点</view>
+      <input placeholder="请出入捡到的地点" class='radius' name='input'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>联系方式</view>
+      <input placeholder="请输入你的联系方式" class='radius' name='input'></input>
+    </view>
+
+    <view class="padding-xl flex flex-direction">
+      <button class='cu-btn bg-theme lg'>提交</button>
+    </view>
+  </view>
+
+
+</view>
