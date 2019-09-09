@@ -6,6 +6,14 @@ Page({
    */
   data: {
     active: 0,
+    loading: false,
+    isFind: true,
+    publish_type: 0,
+    publish_list: [],
+    typeArray: [
+      ['一卡通', '身份证', '学生证', '其他'],
+      ['电子', '书本', '生活', '其他']
+    ],
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar
   },
@@ -13,57 +21,119 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this._getPublishList(0)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
+  },
+
+  _getPublishList(publish_type, first_type, second_type) {
+    let that = this
+    this.setData({
+      loading: true
+    })
+    wx.cloud.callFunction({
+      name: 'get_publish_list',
+      data: {
+        school_id: wx.getStorageSync('school_info').school_id,
+        publish_type,
+        first_type,
+        second_type
+      },
+      success: res => {
+        let publish_list = res.result.publish_list.data
+        that.setData({
+          publish_list,
+          loading: false
+        })
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  changeType(e) {
+    // console.log('e', e.currentTarget.dataset.publish_type)
+    let publish_type = parseInt(e.currentTarget.dataset.publish_type)
+    this.setData({
+      isFind: !this.data.isFind,
+      publish_type,
+      active: 0
+    })
+    this._getPublishList(publish_type)
+  },
+
+  onTabChange(e){
+    console.log('index', e.detail.index)
+    let index = e.detail.index
+    switch (index) {
+      case 0:
+        this._getPublishList(this.data.publish_type)
+        break;
+      case 1:
+        this._getPublishList(this.data.publish_type, 0)
+        break;
+      case 2:
+        this._getPublishList(this.data.publish_type, 1, 0)
+        break;
+      case 3:
+        this._getPublishList(this.data.publish_type, 1, 1)
+        break;
+      case 4:
+        this._getPublishList(this.data.publish_type, 1, 2)
+        break;
+      case 5:
+        this._getPublishList(this.data.publish_type, 1, 3)
+        break;
+    }
   },
 
   onAdd(e) {
@@ -86,9 +156,12 @@ Page({
         break;
     }
   },
-  getDetail(){
+  getDetail(e) {
+
+    let id = e.currentTarget.dataset.id
+
     wx.navigateTo({
-      url: '/pages/square/detail/detail',
+      url: '/pages/square/detail/detail?id='+id,
     })
   }
 })

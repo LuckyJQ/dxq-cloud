@@ -1,8 +1,14 @@
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" style="height:{{CustomBar+40}}px;padding-top:{{StatusBar}}px;">
-      <view class="cu-avatar xl round margin-left margin-right" style="background-image:url(https://image.weilanwl.com/img/square-4.jpg);"></view>
-      <text style="font-size:16px">小明同学</text>
+      <view wx:if="{{authorized}}" class="cu-avatar xl round margin-left margin-right" style="background-image:url({{userInfo.avatarUrl}});"></view>
+
+      <img-button wx:if="{{!authorized}}" open-type="getUserInfo" bind:getuserinfo="onGetUserInfo">
+        <view slot="img" class="cu-avatar xl round margin-left margin-right" style="background-image:url(/images/login.png);">
+        </view>
+      </img-button>
+      <text wx:if="{{!authorized}}" style="font-size:16px">未登陆</text>
+      <text wx:if="{{authorized}}" style="font-size:16px">{{userInfo.nickName}}</text>
     </view>
   </view>
 

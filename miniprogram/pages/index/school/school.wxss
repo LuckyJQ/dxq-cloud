@@ -7,3 +7,9 @@
   left: 50%;
   margin-left: -80rpx;
 }
+
+.loading-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

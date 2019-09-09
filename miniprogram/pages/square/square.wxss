@@ -36,7 +36,9 @@
 }
 
 .tab-container {
-  padding: 40rpx;
+  padding: 20rpx 40rpx;
+  display: flex;
+  flex-direction: column;
 }
 
 .tab-container:nth-last-child(1){
@@ -56,7 +58,7 @@
   line-height: 48rpx;
 }
 
-.tab-mid {
+/* .tab-mid {
   display: flex;
 }
 
@@ -71,7 +73,7 @@
   direction: colum;
   flex-wrap: wrap;
   align-items: flex-end;
-}
+} */
 
 .add-button {
   width: 120rpx;
@@ -80,4 +82,10 @@
   right: 40rpx;
   bottom: 100rpx;
   margin: 20rpx;
+}
+
+.loading-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

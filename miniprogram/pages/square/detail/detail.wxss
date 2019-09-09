@@ -11,10 +11,16 @@
   padding-bottom: 20rpx;
 }
 
+.content {
+  line-height: 1.8;
+  margin-top: 20rpx;
+}
+
 .tab-container image {
   width: 100%;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
+  height: auto;
 }
 
 
@@ -37,6 +43,12 @@
 }
 
 .tab-bottom text {
-  line-height: 1.8;
+  line-height: 2;
+}
+
+.loading-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 

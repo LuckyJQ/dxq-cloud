@@ -24,4 +24,6 @@
 
   <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
 
+  <loading class="loading-center" wx:if="{{loading}}"></loading>
+
 </view>

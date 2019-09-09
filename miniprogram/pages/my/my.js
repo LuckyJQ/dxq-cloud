@@ -6,14 +6,16 @@ Page({
    */
   data: {
     StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar
+    CustomBar: app.globalData.CustomBar,
+    authorized: false,
+    userInfo: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.userAuthorized()
   },
 
   /**
@@ -63,6 +65,46 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //用户授权
+  onGetUserInfo(e){
+    const userInfo = e.detail.userInfo
+    if (userInfo) {
+      console.log('userInfo', userInfo)
+      this.setData({
+        userInfo: userInfo,
+        authorized: true
+      })
+      wx.setStorageSync('user_info', userInfo)
+    }
+  },
+
+  //判断用户是否已经授权，已授权下次进来时可以直接调用
+  userAuthorized(){
+    wx.getSetting({
+      success: data => {
+        if (data.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: data => {
+              this.setData({
+                authorized: true,
+                userInfo: data.userInfo
+              })
+
+              //保证永远是最新的个人信息
+              wx.setStorageSync('user_info', data.userInfo)
+            },
+            fail: err=>{
+              wx.showToast({
+                title: '授权已过期，请重新授权',
+                duration: 1500
+              })
+            }
+          })
+        }
+      }
+    })
   },
   getInfo(){
     wx.navigateTo({

@@ -2,6 +2,7 @@
   "usingComponents": {
     "van-tab": "vant-weapp/tab",
     "van-tabs": "vant-weapp/tabs",
-    "add-btn": "/components/add-button/cc-mainbutton"
+    "add-btn": "/components/add-button/cc-mainbutton",
+    "loading": "/components/loading/index"
   }
 }

@@ -7,16 +7,21 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return {
-    // 获取帖子列表
-
-    // 获取帖子列表
-    postlist: await db.collection('post_collection').field({
-      _id: true,
-      content: true,
-      watch_count: true,
-      update_time: true
-    }).orderBy('update_time', 'desc').get()
-
+  if(event.first_type === 0 || 1){
+    return {
+      publish_list: await db.collection('publish_collection').where({
+        school_id: event.school_id,
+        publish_type: event.publish_type,
+        first_type: event.first_type,
+        second_type: event.second_type
+      }).orderBy('publish_time', 'desc').get()
+    }
+  } else {
+    return {
+      publish_list: await db.collection('publish_collection').where({
+        school_id: event.school_id,
+        publish_type: event.publish_type
+      }).orderBy('publish_time', 'desc').get()
+    }
   }
 }

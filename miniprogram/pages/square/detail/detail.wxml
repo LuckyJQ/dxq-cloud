@@ -9,22 +9,31 @@
 
   <view class="tab-container">
     <view class="tab-top">
-      <view class='cu-tag bg-theme radius sm'>电子</view>
-      <text class="title">黑色的手机</text>
-      <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+      <view class='cu-tag bg-theme radius sm'>{{typeArray[publish_detail.first_type][publish_detail.second_type]}}</view>
+      <text class="title">{{publish_detail.name ? publish_detail.name : publish_detail.card_name}}</text>
+      <text class="text-right" style="flex:1;font-size:12px;">三天前发布</text>
     </view>
-    <text>我在田径场丢失了一个黑色华为手机，保护壳是透明的希望捡到同学还给我，谢谢！</text>
-    <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3518071394,1573821605&fm=26&gp=0.jpg" mode="widthFix"></image>
-    <view class="tab-bottom margin-top-sm">
-      <text>感谢金:5</text>
-      <text>丢失时间：2019.8.29</text>
-      <text>丢失地点：西电南校区丁香餐厅</text>
-      <text>联系方式:17691203856</text>
+    <text class="content">{{publish_detail.description}}</text>
+    <image src="{{imgUrl}}" mode="widthFix"></image>
+
+    <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===0}}">
+      <text>捡到时间：{{publish_detail.lost_or_find_time}}</text>
+      <text>捡到地点：{{publish_detail.lost_or_find_place}}</text>
+      <text>联系方式：{{publish_detail.concat}}</text>
+    </view>
+
+    <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===1}}">
+      <text>感谢金：{{publish_detail.thanks ? publish_detail.thanks: '未设置' }}</text>
+      <text>丢失时间：{{publish_detail.lost_or_find_time}}</text>
+      <text>丢失地点：{{publish_detail.lost_or_find_place}}</text>
+      <text>联系方式：{{publish_detail.concat}}</text>
     </view>
 
     <view class="padding-xl flex flex-direction margin-top-xl">
       <button class='cu-btn bg-theme lg'>分享</button>
     </view>
   </view>
+
+  <loading class="loading-center" wx:if="{{loading}}"></loading>
 
 </view>

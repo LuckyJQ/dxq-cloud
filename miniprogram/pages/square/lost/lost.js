@@ -7,12 +7,34 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    date: '2019-8-30',
+    hideAdd: false,
+    date: new Date().format("yyyy-MM-dd"),
+    // end_time: new Date().toLocaleString().split(' ')[0].split('/').join('-'),
+    end_time: new Date().format("yyyy-MM-dd"),
+    img: null,
     multiIndex: [0, 0],
     multiArray: [
       ['卡证类', '非卡证类'],
       ['一卡通', '身份证', '学生证', '其他']
-    ]
+    ],
+    postData: {
+      first_type: null,
+      second_type: null,
+      name: null,
+      description: null,
+      thanks: null,
+      lost_or_find_name: null,
+      lost_or_find_place: null,
+      lost_or_find_time: null,
+      concat: null,
+      card_number: null,
+      card_name: null,
+      // user_id: null,
+      // school_id: null,
+      publish_type: 1,
+      isrich: false,
+      istop: false
+    }
   },
 
   /**
@@ -71,6 +93,61 @@ Page({
 
   },
 
+  uploadImg: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有 
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
+      success: function (res) {
+        console.log(res)
+        let img_url = res.tempFilePaths[0]
+        let index = img_url.lastIndexOf("/");
+        let fileName = img_url.substr(index + 1)
+        that.upload(fileName, img_url)
+      }
+    })
+  },
+
+  //上传图片
+  upload(fileName, img_url) {
+    console.log('fileName', fileName)
+    let that = this
+    wx.cloud.uploadFile({
+      cloudPath: 'dxq/' + fileName,
+      filePath: img_url,
+      success: res => {
+        console.log(res)
+        that.setData({
+          hideAdd: true,
+          img: res.fileID
+        })
+      },
+      fail: err => {
+        console.log('图片上传失败: ' + err.errMsg)
+      }
+    })
+  },
+
+  removeImg() {
+    let that = this
+    wx.showModal({
+      title: '删除警告',
+      content: '你确定要删除该图片吗',
+      confirmColor: "#AE81F7",
+      success(res) {
+        if (res.confirm) {
+          that.setData({
+            hideAdd: false,
+            img: null
+          })
+        } else if (res.cancel) {
+          console.log('取消删除')
+        }
+      }
+    })
+  },
+
   MultiChange(e) {
     this.setData({
       multiIndex: e.detail.value
@@ -103,4 +180,33 @@ Page({
       date: e.detail.value
     })
   },
+  formSubmit(e) {
+    let that = this
+    let post_detail = e.detail.value
+    console.log('post_detail', post_detail)
+    let type_class = {
+      first_type: post_detail.type_class[0],
+      second_type: post_detail.type_class[1],
+    }
+    Object.assign(post_detail, type_class)
+    // console.log(post_detail)
+    this.setData({
+      postData: Object.assign(this.data.postData, post_detail)
+    })
+
+    //发送存储请求
+    wx.cloud.callFunction({
+      name: 'publish',
+      data: {
+        ...that.data.postData,
+        img: that.data.img,
+        user_id: wx.getStorageSync('openid'),
+        school_id: wx.getStorageSync('school_info').school_id
+      },
+      success: function (res) {
+        console.log(res)
+      },
+      fail: console.error
+    })
+  }
 })

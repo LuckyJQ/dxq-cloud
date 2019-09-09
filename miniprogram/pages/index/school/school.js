@@ -9,7 +9,8 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    schools: []
+    schools: [],
+    loading: false
   },
 
   /**
@@ -98,6 +99,9 @@ Page({
     }
   },
   onSearch(e) {
+    this.setData({
+      loading: true
+    })
     this.throttle(this._onSearch.bind(this, e), 500)()
   },
   _onSearch(e) {
@@ -112,6 +116,9 @@ Page({
         console.log('res', res.result.school_detail.data)
         that.setData({
           schools: res.result.school_detail.data
+        })
+        that.setData({
+          loading: false
         })
       }
     })
