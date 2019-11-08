@@ -1,4 +1,72 @@
+import WxValidate from '../../../utils/validate.js'
+import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
+
 const app = getApp()
+var type1_validate, type2_validate
+
+function initValidate() {
+  // 创建实例对象
+  type1_validate = new WxValidate({
+    card_name: {
+      required: true,
+      maxlength: 10
+    },
+    card_number: {
+      required: true
+    },
+    lost_or_find_place: {
+      required: true
+    },
+    concat: {
+      required: true,
+      tel: true
+    }
+  }, {
+      card_name: {
+        required: '请输入持卡人姓名!',
+        maxlength: '姓名不得超过10字!'
+      },
+      card_number: {
+        required: '请输入持卡人卡号'
+      },
+      lost_or_find_place: {
+        required: '请输入丢失的地点'
+      },
+      concat: {
+        required: '请输入联系方式',
+        tel: '手机号格式错误'
+      }
+    })
+
+
+  type2_validate = new WxValidate({
+    name: {
+      required: true,
+      maxlength: 12
+    },
+    lost_or_find_place: {
+      required: true
+    },
+    concat: {
+      required: true,
+      tel: true
+    }
+  }, {
+      name: {
+        required: '请输入物品名称!',
+        maxlength: '物品名称不得超过12字!'
+      },
+      lost_or_find_place: {
+        required: '请输入丢失的地点'
+      },
+      concat: {
+        required: '请输入联系方式',
+        tel: '手机号格式错误'
+      }
+    })
+}
+
+
 Page({
 
   /**
@@ -41,7 +109,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.checkIfSelectedSchool()
+    initValidate()
   },
 
   /**
@@ -92,7 +161,60 @@ Page({
   onShareAppMessage: function () {
 
   },
-
+  checkIfNameExist(e) {
+    console.log(e.detail.value)
+    wx.cloud.callFunction({
+      name:'check_if_obj_exist',
+      data:{
+        kw: e.detail.value,
+        school_id: wx.getStorageSync('school_info').school_id
+      },
+      success: res=>{
+        console.log(res)
+        let len = res.result.check_result.data.length
+        if (len){
+          wx.showModal({
+            title: '温馨提示',
+            content: `有${len}条数据和你匹配，是否立刻查看？`,
+            confirmColor: "#AE81F7",
+            success(res) {
+              console.log('我要跳转了')
+            }
+          })
+        }
+      },
+      fail: err=>{
+        console.log(err)
+      }
+    })
+  },
+  checkIfCardNumberExist(e) {
+    console.log(e.detail.value)
+    wx.cloud.callFunction({
+      name: 'check_if_obj_exist',
+      data: {
+        cardnum: e.detail.value,
+        school_id: wx.getStorageSync('school_info').school_id
+      },
+      success: res => {
+        console.log(res)
+        let len = res.result.check_result.data.length
+        if (len) {
+          wx.showModal({
+            title: '温馨提示',
+            content: `有${len}条数据和你匹配，是否立刻查看？`,
+            confirmColor: "#AE81F7",
+            success(res) {
+              console.log('我要跳转了')
+            }
+          })
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
   uploadImg: function () {
     var that = this;
     wx.chooseImage({
@@ -194,6 +316,21 @@ Page({
       postData: Object.assign(this.data.postData, post_detail)
     })
 
+
+    if (post_detail.first_type === 0) {
+      if (!type1_validate.checkForm(post_detail)) {
+        const error = type1_validate.errorList[0];
+        Toast(error.msg);
+        return
+      }
+    } else {
+      if (!type2_validate.checkForm(post_detail)) {
+        const error = type2_validate.errorList[0];
+        Toast(error.msg);
+        return
+      }
+    }
+
     //发送存储请求
     wx.cloud.callFunction({
       name: 'publish',
@@ -201,10 +338,22 @@ Page({
         ...that.data.postData,
         img: that.data.img,
         user_id: wx.getStorageSync('openid'),
-        school_id: wx.getStorageSync('school_info').school_id
+        school_id: wx.getStorageSync('school_info').school_id,
+        form_id: e.detail.formId
       },
       success: function (res) {
         console.log(res)
+        wx.showToast({
+          title: '发布成功',
+          duration: 1500,
+          success: () => {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1500)
+          }
+        })
       },
       fail: console.error
     })

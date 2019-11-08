@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
-    "pages/square/detail/detail",
     "pages/square/find/find",
     "pages/square/lost/lost",
     "pages/square/square",
+    "pages/square/detail/detail",
     "pages/my/my",
     "pages/square/help/help",
     "pages/my/my-info/my-info",
@@ -13,7 +14,10 @@
     "pages/my/help/help",
     "pages/my/concat/concat",
     "pages/my/admin/admin",
-    "pages/index/school/school"
+    "pages/index/school/school",
+    "pages/square/search/search",
+    "pages/index/week/week",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

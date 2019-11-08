@@ -7,6 +7,7 @@ exports.main = async (event, context) => {
     return await db.collection('publish_collection').add({
       data: {
         ...event,
+        del_status: false,
         publish_time: Date.now(),
         update_time: Date.now()
       }

@@ -42,3 +42,8 @@ page {
   display: flex;
   flex-direction: column;
 }
+
+.btn-bottom {
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+}

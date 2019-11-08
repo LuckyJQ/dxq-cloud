@@ -8,22 +8,24 @@
   </view>
 
   <view class="cu-list menu menu-avatar solid-bottom">
-    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}} published-item" wx:for="{{4}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}} published-item" wx:for="{{my_publish}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}">
       <view class="text-info">
         <view class="text-left">
-          <view class='cu-tag bg-theme radius sm margin-right-sm'>电子</view>
-          <text>丢失一部手机</text>
+          <view style="width:200rpx;">
+            <view class='cu-tag bg-theme radius sm margin-right-xs'>{{item.publish_type===0?'捡到':'丢失'}}</view>
+            <view class='cu-tag bg-theme radius sm margin-right-sm'>{{typeArray[item.first_type][item.second_type]}}</view>
+          </view>
+          <text>{{item.name ? item.name : item.card_name}}</text>
         </view>
         <text class="text-gray text-sm">三天前</text>
       </view>
       <view class='move'>
-        <view class='bg-grey' data-target="move-box-{{index}}" bindtap="getTop">置顶</view>
-        <view class="bg-red" data-target="move-box-{{index}}" bindtap="getDel">删除</view>
+        <view class="bg-red del-button" data-target="move-box-{{index}}" data-id="{{item._id}}" bindtap="getDel">删除</view>
       </view>
     </view>
   </view>
 
-
-
+  <view class="mask" wx:if="{{loading}}"></view>
+  <loading class="loading-center" wx:if="{{loading}}"></loading>
 
 </view>

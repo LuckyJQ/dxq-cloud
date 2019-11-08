@@ -52,10 +52,14 @@
 }
 
 .tab-container .tab-top .title {
+  width: 400rpx;
   font-size: 16px;
   font-weight: 500;
   margin-left: 20rpx;
   line-height: 48rpx;
+  white-space:nowrap; 
+  overflow:hidden; 
+  text-overflow:ellipsis;
 }
 
 /* .tab-mid {

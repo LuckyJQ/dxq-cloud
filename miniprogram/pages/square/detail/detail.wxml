@@ -30,9 +30,27 @@
     </view>
 
     <view class="padding-xl flex flex-direction margin-top-xl">
-      <button class='cu-btn bg-theme lg'>分享</button>
+      <button class='cu-btn bg-theme lg' bindtap="onShare">分享</button>
     </view>
   </view>
+
+
+  <painter class="hidden" customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
+
+
+  <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
+    <view class="share-box">
+      <view class="top solid-bottom">
+        <text>生成分享海报</text>
+      </view>
+      <image class="img shadow" src="{{img}}"></image>
+      <button class='poster-button cu-btn round bg-theme' bind:tap='saveImage'>保存到本地</button>
+    </view>
+  </van-popup>
+
+
+  <view class="mask" wx:if="{{loading}}"></view>
+
 
   <loading class="loading-center" wx:if="{{loading}}"></loading>
 

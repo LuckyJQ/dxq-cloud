@@ -1,4 +1,70 @@
+import WxValidate from '../../../utils/validate.js'
+import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
+
 const app = getApp()
+var type1_validate, type2_validate
+
+function initValidate() {
+  // 创建实例对象
+  type1_validate = new WxValidate({
+    card_name: {
+      required: true,
+      maxlength: 10
+    },
+    card_number: {
+      required: true
+    },
+    lost_or_find_place: {
+      required: true
+    },
+    concat: {
+      required: true,
+      tel: true
+    }
+  }, {
+    card_name: {
+      required: '请输入持卡人姓名!',
+      maxlength: '姓名不得超过10字!'
+    },
+    card_number: {
+      required: '请输入持卡人卡号'
+    },
+    lost_or_find_place: {
+      required: '请输入捡到的地点'
+    },
+    concat: {
+      required: '请输入联系方式',
+      tel: '手机号格式错误'
+    }
+  })
+
+  type2_validate = new WxValidate({
+    name: {
+      required: true,
+      maxlength: 12
+    },
+    lost_or_find_place: {
+      required: true
+    },
+    concat: {
+      required: true,
+      tel: true
+    }
+  }, {
+    name: {
+      required: '请输入物品名称!',
+      maxlength: '物品名称不得超过12字!'
+    },
+    lost_or_find_place: {
+      required: '请输入捡到的地点'
+    },
+    concat: {
+      required: '请输入联系方式',
+      tel: '手机号格式错误'
+    }
+  })
+}
+
 Page({
 
   /**
@@ -41,26 +107,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // wx.cloud.callFunction({
-    //   name: 'get_class_list',
-    //   success: function (res) {
-    //     let class_list = res.result.class_list.data
-    //     let card = []
-    //     let nocard = []
-    //     class_list.forEach((item,index)=>{
-    //       if(item.first_type === 0){
-    //         card.push(item.name)
-    //       }
-    //       if(item.first_type === 1){
-    //         nocard.push(item.name)
-    //       }
-    //     })
-
-    //     console.log('card',card)
-    //     console.log('nocard', nocard)
-    //   },
-    //   fail: console.error
-    // })
+    app.checkIfSelectedSchool()
+    initValidate()
   },
 
   /**
@@ -212,8 +260,21 @@ Page({
       postData: Object.assign(this.data.postData, post_detail)
     })
 
+    if (post_detail.first_type === 0) {
+      if (!type1_validate.checkForm(post_detail)) {
+        const error = type1_validate.errorList[0];
+        Toast(error.msg);
+        return
+      }
+    } else {
+      if (!type2_validate.checkForm(post_detail)) {
+        const error = type2_validate.errorList[0];
+        Toast(error.msg);
+        return
+      }
+    }
 
-    //发送存储请求
+    // 发送存储请求
     wx.cloud.callFunction({
       name: 'publish',
       data: {
@@ -223,9 +284,60 @@ Page({
         school_id: wx.getStorageSync('school_info').school_id
       },
       success: function(res) {
-        console.log(res)
+        that.sendMsg()
+        wx.showToast({
+          title: '发布成功',
+          duration: 1500,
+          success: () => {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1500)
+          }
+        })
       },
       fail: console.error
+    })
+
+  },
+
+
+  // 发送模板消息
+  sendMsg() {
+    let that = this
+    console.log('this.postData',that.postData)
+    wx.cloud.callFunction({
+      name: 'push0524',
+      data: {
+        lost_or_find_name: that.data.postData.lost_or_find_name ? that.postData.lost_or_find_name : '',
+        card_name: that.data.postData.card_name,
+        card_number: that.data.postData.card_number,
+        school_id: wx.getStorageSync('school_info').school_id
+      },
+      success(res) {
+        console.log('推送成功', res)
+        if (res.result.data[0]){
+          wx.cloud.callFunction({
+            name: 'send_model_message',
+            data: {
+              formId: res.result.data[0].form_id,
+              // receive_obj: res.result.data[0],
+              findersData: that.data.postData,
+              toLoster: res.result.data[0].userInfo
+            },
+            success(res) {
+              console.log('模版消息', res)
+            },
+            fail(e) {
+              console.log('模版消息失败', e)
+            }
+          })
+        }
+      },
+      fail(res) {
+        console.log('推送失败', res)
+      }
     })
   }
 })

@@ -1,5 +1,5 @@
 <view>
-  <form bindsubmit="formSubmit">
+  <form bindsubmit="formSubmit" report-submit='true'>
     <view class="cu-custom" style="height:{{CustomBar}}px;">
       <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
@@ -20,11 +20,11 @@
     <view wx:if="{{multiIndex[0]===0}}">
       <view class="cu-form-group">
         <view class='title'>持卡人姓名</view>
-        <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='card_name'></input>
+        <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='card_name' bindblur="checkIfNameExist"></input>
       </view>
       <view class="cu-form-group">
         <view class='title'>卡号</view>
-        <input placeholder="请输入卡号，系统会做隐私处理" class='radius' name='card_number'></input>
+        <input placeholder="请输入卡号，系统会做隐私处理" class='radius' name='card_number' bindblur="checkIfCardNumberExist"></input>
       </view>
       <view class="cu-form-group top">
         <view class='title'>详情描述</view>
@@ -62,7 +62,7 @@
       </view>
       <view class="cu-form-group">
         <view class='title'>丢失地点</view>
-        <input placeholder="请输入丢失的地点" class='radius' name='lost_or_find_place'></input>
+        <input placeholder="请输入丢失的地点" class='radius' name='lost_or_find_place' ></input>
       </view>
       <view class="cu-form-group">
         <view class='title'>联系方式</view>
@@ -128,13 +128,13 @@
       </view>
       <view class="cu-form-group">
         <view class='title'>感谢金</view>
-        <input placeholder="感谢金将奖励给归还者，非必须" class='radius' name='thanks'></input>
+        <input placeholder="感谢金将奖励给归还者，可不填" class='radius' name='thanks'></input>
       </view>
     </view>
 
     <view class="padding-xl flex flex-direction">
-      <button class='cu-btn bg-theme lg' form-type="submit">提交</button>
+      <button class='cu-btn bg-theme lg btn-bottom' form-type="submit">提交</button>
     </view>
-
+    <van-toast id="van-toast" />
   </form>
 </view>

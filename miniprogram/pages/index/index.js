@@ -71,13 +71,24 @@ Page({
 
   },
   toLost() {
-    wx.navigateTo({
-      url: '/pages/square/lost/lost',
-    })
+    app.checkIfSelectedSchool()
+    if (wx.getStorageSync('school_info')){
+      wx.navigateTo({
+        url: '/pages/square/lost/lost',
+      })
+    }
   },
   toFind() {
+    app.checkIfSelectedSchool()
+    if (wx.getStorageSync('school_info')){
+      wx.navigateTo({
+        url: '/pages/square/find/find',
+      })
+    }
+  },
+  toWeek(){
     wx.navigateTo({
-      url: '/pages/square/find/find',
+      url: '/pages/index/week/week',
     })
   },
   cardSwiper(e) {

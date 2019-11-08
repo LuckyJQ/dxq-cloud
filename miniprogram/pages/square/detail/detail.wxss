@@ -23,7 +23,6 @@
   height: auto;
 }
 
-
 .tab-container .tab-top {
   align-items: center;
   margin-bottom: 10rpx;
@@ -52,3 +51,38 @@
   left: 50%;
 }
 
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+}
+
+.share-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.share-box .top {
+  width: 100%;
+  padding: 20rpx 0;
+}
+
+.share-box .img {
+  width: 300rpx;
+  height: 480rpx;
+  margin-top: 30rpx;
+}
+
+.share-box .poster-button {
+  margin: 40rpx 0;
+}
+
+.hidden {
+  position: absolute;
+  left: -6000rpx;
+}

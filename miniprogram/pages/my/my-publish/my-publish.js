@@ -6,14 +6,26 @@ Page({
    */
   data: {
     StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar
+    CustomBar: app.globalData.CustomBar,
+    loading: false,
+    my_publish: [],
+    typeArray: [
+      ['一卡通', '身份证', '学生证', '其他'],
+      ['电子', '书本', '生活', '其他']
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this
+    this.setData({
+      loading: true
+    })
 
+    let user_id = wx.getStorageSync('openid')
+    this._getPublish(user_id)
   },
 
   /**
@@ -97,11 +109,71 @@ Page({
 
   getTop(e){
     console.log('置顶')
-    console.log(e.target.dataset.target)
+    console.log(e.target.dataset.id)
   },
 
   getDel(e){
-    console.log('删除')
-    console.log(e.target.dataset.target)
+    let that = this
+    let id = e.target.dataset.id
+    wx.showModal({
+      title: '删除警告',
+      content: '你确定要删除该发布吗',
+      confirmColor: "#AE81F7",
+      success(res) {
+        if (res.confirm) {
+          that._delPublish(id)
+        } else if (res.cancel) {
+          console.log('取消删除')
+        }
+      }
+    })
+  },
+
+  _getPublish(user_id){
+    let that = this
+    wx.cloud.callFunction({
+      name: 'get_my_publish',
+      data: {
+        user_id
+      },
+      success: (res) => {
+        let my_publish = res.result.my_publish.data
+        that.setData({
+          my_publish,
+          loading: false
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+  },
+
+  _delPublish(id){
+    let that = this
+    wx.cloud.callFunction({
+      name: 'del_my_publish',
+      data: {
+        id: id
+      },
+      success: (res)=>{
+        
+        let data = that.data.my_publish
+        data.forEach((item,index)=>{
+          if(item._id === id){
+            data.splice(index, 1)
+            that.setData({
+              my_publish: data
+            })
+          }
+        })
+        wx.showToast({
+          title: '删除成功'
+        })
+      },
+      fail: (err)=>{
+        console.log(err)
+      }
+    })
   }
 })

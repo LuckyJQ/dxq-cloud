@@ -81,7 +81,12 @@ Page({
       duration: 1000,
       success: function() {
         setTimeout(() => {
-          wx.navigateBack({})
+          // wx.navigateBack({})
+
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+
         }, 1000)
       }
     })

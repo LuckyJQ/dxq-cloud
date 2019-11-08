@@ -1,0 +1,7 @@
+<view style="margin-top:80px;">
+  <form report-submit='true' bindsubmit='getFormid'>
+    <button form-type="submit">获取formid</button>
+  </form>
+  <text>formid: {{formid}}</text>
+  <button bindtap="sendMsg">云开发发送模板消息</button>
+</view>

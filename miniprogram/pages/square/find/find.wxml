@@ -1,5 +1,5 @@
 <view>
-  <form bindsubmit="formSubmit">
+  <form bindsubmit="formSubmit" report-submit='true'>
     <view class="cu-custom" style="height:{{CustomBar}}px;">
       <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
@@ -130,5 +130,6 @@
     <view class="padding-xl flex flex-direction">
       <button class='cu-btn bg-theme lg' form-type="submit">提交</button>
     </view>
+    <van-toast id="van-toast" />
   </form>
 </view>

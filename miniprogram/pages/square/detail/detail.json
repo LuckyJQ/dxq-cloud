@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "loading": "/components/loading/index"
+    "loading": "/components/loading/index",
+    "van-popup": "vant-weapp/popup",
+    "painter": "/components/painter/painter"
   }
 }

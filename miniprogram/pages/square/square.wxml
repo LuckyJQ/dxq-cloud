@@ -5,7 +5,7 @@
       <view class="cu-bar search my-search">
         <view class='search-form round'>
           <text class="icon-search"></text>
-          <input type="text" placeholder="搜索失物" confirm-type="search"></input>
+          <input type="text" placeholder="搜索失物" confirm-type="search" bindconfirm="onSearch"></input>
         </view>
       </view>
     </view>
@@ -21,7 +21,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
@@ -32,7 +32,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
@@ -43,7 +43,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
@@ -54,7 +54,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
@@ -65,7 +65,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
@@ -76,7 +76,7 @@
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name+"的卡"}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
           <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>

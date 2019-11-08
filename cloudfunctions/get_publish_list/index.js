@@ -10,6 +10,7 @@ exports.main = async (event, context) => {
   if(event.first_type === 0 || 1){
     return {
       publish_list: await db.collection('publish_collection').where({
+        del_status: false,
         school_id: event.school_id,
         publish_type: event.publish_type,
         first_type: event.first_type,
@@ -19,6 +20,7 @@ exports.main = async (event, context) => {
   } else {
     return {
       publish_list: await db.collection('publish_collection').where({
+        del_status: false,
         school_id: event.school_id,
         publish_type: event.publish_type
       }).orderBy('publish_time', 'desc').get()

@@ -36,7 +36,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    app.checkIfSelectedSchool()
 
+    // 开启onShow时候强制刷新
+    // this._getPublishList(0)
+    // this.setData({
+    //   isFind: true,
+    //   active: 0
+    // })
   },
 
   /**
@@ -74,15 +81,27 @@ Page({
 
   },
 
+  onSearch(e) {
+    app.checkIfSelectedSchool()
+
+    if (wx.getStorageSync('school_info')) {
+      let kw = e.detail.value
+      wx.navigateTo({
+        url: '/pages/square/search/search?kw=' + kw,
+      })
+    }
+  },
+
   _getPublishList(publish_type, first_type, second_type) {
     let that = this
+    let school_id = wx.getStorageSync('school_info').school_id
     this.setData({
       loading: true
     })
     wx.cloud.callFunction({
       name: 'get_publish_list',
       data: {
-        school_id: wx.getStorageSync('school_info').school_id,
+        school_id: school_id ? school_id : 'none',
         publish_type,
         first_type,
         second_type
@@ -111,7 +130,7 @@ Page({
     this._getPublishList(publish_type)
   },
 
-  onTabChange(e){
+  onTabChange(e) {
     console.log('index', e.detail.index)
     let index = e.detail.index
     switch (index) {
@@ -137,23 +156,26 @@ Page({
   },
 
   onAdd(e) {
-    let index = e.detail
-    switch (index) {
-      case '1':
-        wx.navigateTo({
-          url: '/pages/square/help/help',
-        })
-        break;
-      case '2':
-        wx.navigateTo({
-          url: '/pages/square/lost/lost',
-        })
-        break;
-      case '3':
-        wx.navigateTo({
-          url: '/pages/square/find/find',
-        })
-        break;
+    app.checkIfSelectedSchool()
+    if (wx.getStorageSync('school_info')) {
+      let index = e.detail
+      switch (index) {
+        case '1':
+          wx.navigateTo({
+            url: '/pages/square/help/help',
+          })
+          break;
+        case '2':
+          wx.navigateTo({
+            url: '/pages/square/lost/lost',
+          })
+          break;
+        case '3':
+          wx.navigateTo({
+            url: '/pages/square/find/find',
+          })
+          break;
+      }
     }
   },
   getDetail(e) {
@@ -161,7 +183,7 @@ Page({
     let id = e.currentTarget.dataset.id
 
     wx.navigateTo({
-      url: '/pages/square/detail/detail?id='+id,
+      url: '/pages/square/detail/detail?id=' + id,
     })
   }
 })

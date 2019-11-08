@@ -1,5 +1,25 @@
-//app.js
 App({
+  checkIfSelectedSchool() {
+    let school_info = wx.getStorageSync('school_info')
+    if (!school_info) {
+      wx.showModal({
+        title: '警告',
+        content: '请先选择你的学校',
+        confirmColor:'#AE81F7',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/index/school/school'
+            })
+          } else if (res.cancel) {
+            console.log('取消')
+          }
+        }
+      })
+    }
+    return
+  },
+
   onLaunch: function() {
     wx.getSystemInfo({
       success: e => {
@@ -30,7 +50,6 @@ App({
       },
       fail: console.error
     })
-
 
     Date.prototype.format = function(fmt) {
       var o = {

@@ -1,0 +1,26 @@
+<view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 搜索
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-list menu menu-avatar solid-bottom">
+    <view class="cu-item published-item" wx:for="{{search_result}}" wx:key>
+      <view class="text-info">
+        <view class="text-left">
+          <view class='cu-tag bg-theme radius sm margin-right-sm'>{{item.publish_type===0?'捡到':'丢失'}}</view>
+          <text>{{item.name ? item.name : item.card_name}}</text>
+        </view>
+        <text class="text-gray text-sm">三天前</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mask" wx:if="{{loading}}"></view>
+  <loading class="loading-center" wx:if="{{loading}}"></loading>
+
+
+</view>
