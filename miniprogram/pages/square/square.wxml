@@ -1,3 +1,5 @@
+<wxs src="../../utils/formatTime.wxs" module="time" />
+
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
@@ -22,7 +24,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -33,7 +35,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -44,7 +46,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -55,7 +57,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -66,7 +68,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -77,7 +79,7 @@
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">三天前</text>
+          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
         </view>
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
@@ -89,9 +91,10 @@
     <button class='cu-btn icon-add bg-theme shadow add-button'></button>
   </view> -->
 
-  <view class="add-button">
+  <!-- 发布按钮组件，有点繁琐，先取消了 -->
+  <!-- <view class="add-button">
     <add-btn bind:add="onAdd"></add-btn>
-  </view>
+  </view> -->
 
   <loading class="loading-center" wx:if="{{loading}}"></loading>
 

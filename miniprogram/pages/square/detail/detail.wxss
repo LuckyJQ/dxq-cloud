@@ -43,6 +43,7 @@
 
 .tab-bottom text {
   line-height: 2;
+  font-size: 16px;
 }
 
 .loading-center {

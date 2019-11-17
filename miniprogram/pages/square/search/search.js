@@ -14,7 +14,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options)
     this.getSearch(options.kw)
     this.setData({
@@ -25,60 +25,60 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
-  getSearch(kw){
+  getSearch(kw) {
     let that = this
     wx.cloud.callFunction({
-      name:'get_search',
-      data:{
+      name: 'get_search',
+      data: {
         kw
       },
-      success: (res)=>{
+      success: (res) => {
         console.log(res)
         let search_result = res.result.search_result.data
         that.setData({
@@ -86,9 +86,16 @@ Page({
           loading: false
         })
       },
-      fail: (err)=>{
+      fail: (err) => {
         console.log(err)
       }
+    })
+  },
+
+  getDetail(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/square/detail/detail?id=' + id,
     })
   }
 })

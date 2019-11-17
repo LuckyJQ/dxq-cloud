@@ -20,11 +20,17 @@
     <view wx:if="{{multiIndex[0]===0}}">
       <view class="cu-form-group">
         <view class='title'>持卡人姓名</view>
-        <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='card_name' bindblur="checkIfNameExist"></input>
+
+
+        <!-- 这个效果不太好，先注释了。 -->
+        <!-- <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='card_name' bindblur="checkIfNameExist"></input> -->
+        <input placeholder="请输入持卡人姓名，用于自动匹配" class='radius' name='card_name'></input>
+
+
       </view>
       <view class="cu-form-group">
         <view class='title'>卡号</view>
-        <input placeholder="请输入卡号，系统会做隐私处理" class='radius' name='card_number' bindblur="checkIfCardNumberExist"></input>
+        <input placeholder="请输入卡号，系统会做隐私处理" class='radius' name='card_number'></input>
       </view>
       <view class="cu-form-group top">
         <view class='title'>详情描述</view>
@@ -62,7 +68,7 @@
       </view>
       <view class="cu-form-group">
         <view class='title'>丢失地点</view>
-        <input placeholder="请输入丢失的地点" class='radius' name='lost_or_find_place' ></input>
+        <input placeholder="请输入丢失的地点" class='radius' name='lost_or_find_place'></input>
       </view>
       <view class="cu-form-group">
         <view class='title'>联系方式</view>

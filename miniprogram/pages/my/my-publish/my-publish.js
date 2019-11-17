@@ -112,6 +112,13 @@ Page({
     console.log(e.target.dataset.id)
   },
 
+  getDetail(e){
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/square/detail/detail?id=' + id,
+    })
+  },
+
   getDel(e){
     let that = this
     let id = e.target.dataset.id

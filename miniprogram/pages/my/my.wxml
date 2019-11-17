@@ -14,11 +14,11 @@
 
 
   <view class="cu-list menu" style="margin-top:120rpx;">
-    <view class="cu-item arrow">
+    <!-- <view class="cu-item arrow">
       <view class='content' bindtap='getInfo'>
         <text>我的资料</text>
       </view>
-    </view>
+    </view> -->
     <view class="cu-item arrow">
       <view class='content' bindtap='getPublish'>
         <text>我的发布</text>
@@ -27,11 +27,11 @@
   </view>
 
   <view class="cu-list menu  margin-top">
-    <view class="cu-item arrow">
+    <!-- <view class="cu-item arrow">
       <view class='content' bindtap='getSystemInfo'>
         <text>系统消息</text>
       </view>
-    </view>
+    </view> -->
     <view class="cu-item arrow">
       <view class='content' bindtap='getHelp'>
         <text>使用帮助</text>

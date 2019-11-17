@@ -108,6 +108,7 @@ Page({
       },
       success: res => {
         let publish_list = res.result.publish_list.data
+        console.log('publish_list', publish_list)
         that.setData({
           publish_list,
           loading: false

@@ -1,5 +1,19 @@
+import {
+  throttle
+} from '../../../utils/throttle.js'
 const app = getApp()
-let timer
+
+// function throttle(fn, wait) {
+//   return function (...args) {
+//     if (!timer) {
+//       timer = setTimeout(() => {
+//         timer = null
+//         fn.apply(this, args)
+//       }, wait)
+//     }
+//   }
+// }
+
 
 Page({
 
@@ -83,9 +97,9 @@ Page({
         setTimeout(() => {
           // wx.navigateBack({})
 
-        wx.switchTab({
-          url: '/pages/index/index',
-        })
+          wx.switchTab({
+            url: '/pages/index/index',
+          })
 
         }, 1000)
       }
@@ -93,40 +107,45 @@ Page({
   },
 
   // 截流函数
-  throttle(fn, wait) {
-    return function(...args) {
-      if (!timer) {
-        timer = setTimeout(() => {
-          timer = null
-          fn.apply(this, args)
-        }, wait)
-      }
-    }
-  },
-  onSearch(e) {
-    this.setData({
-      loading: true
-    })
-    this.throttle(this._onSearch.bind(this, e), 500)()
-  },
-  _onSearch(e) {
-    const that = this
-    let kw = e.detail.value
-    wx.cloud.callFunction({
-      name: 'get_school',
-      data: {
-        kw: kw
-      },
-      success: function(res) {
-        console.log('res', res.result.school_detail.data)
-        that.setData({
-          schools: res.result.school_detail.data
-        })
-        that.setData({
-          loading: false
-        })
-      }
-    })
-  }
+  // throttle(fn, wait) {
+  //   return function(...args) {
+  //     if (!timer) {
+  //       timer = setTimeout(() => {
+  //         timer = null
+  //         fn.apply(this, args)
+  //       }, wait)
+  //     }
+  //   }
+  // },
+
+
+  // onSearch(e) {
+  //   this.setData({
+  //     loading: true
+  //   })
+  //   this.throttle(this._onSearch.bind(this, e), 500)()
+  // },
+
+
+  onSearch: throttle(
+    function(e) {
+      const that = this
+      let kw = e.detail.value
+      wx.cloud.callFunction({
+        name: 'get_school',
+        data: {
+          kw: kw
+        },
+        success: function(res) {
+          console.log('res', res.result.school_detail.data)
+          that.setData({
+            schools: res.result.school_detail.data
+          })
+          that.setData({
+            loading: false
+          })
+        }
+      })
+    }, 500)
 
 })

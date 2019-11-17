@@ -1,3 +1,5 @@
+<wxs src="../../../utils/formatTime.wxs" module="time" />
+
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
@@ -11,12 +13,13 @@
     <view class="tab-top">
       <view class='cu-tag bg-theme radius sm'>{{typeArray[publish_detail.first_type][publish_detail.second_type]}}</view>
       <text class="title">{{publish_detail.name ? publish_detail.name : publish_detail.card_name}}</text>
-      <text class="text-right" style="flex:1;font-size:12px;">三天前发布</text>
+      <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(publish_detail.publish_time)}}</text>
     </view>
     <text class="content">{{publish_detail.description}}</text>
     <image src="{{imgUrl}}" mode="widthFix"></image>
 
     <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===0}}">
+      <text wx:if="{{publish_detail.card_number}}">卡号：{{publish_detail.card_number}}</text>
       <text>捡到时间：{{publish_detail.lost_or_find_time}}</text>
       <text>捡到地点：{{publish_detail.lost_or_find_place}}</text>
       <text>联系方式：{{publish_detail.concat}}</text>
