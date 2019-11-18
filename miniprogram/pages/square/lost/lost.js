@@ -3,6 +3,7 @@ import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
 import {
   debounce
 } from '../../../utils/debounce.js'
+import { ocrRequest} from '../../../utils/face_ocr.js'
 
 const app = getApp()
 var type1_validate, type2_validate
@@ -219,17 +220,56 @@ Page({
   //   })
   // },
   uploadImg: function() {
-    var that = this;
+    // var that = this;
+    // wx.chooseImage({
+    //   count: 1,
+    //   sizeType: ['compressed'], 
+    //   sourceType: ['album', 'camera'],
+    //   success: function(res) {
+    //     console.log(res)
+    //     let img_url = res.tempFilePaths[0]
+    //     let index = img_url.lastIndexOf("/");
+    //     let fileName = img_url.substr(index + 1)
+    //     that.upload(fileName, img_url)
+    //   }
+    // })
+
+
+
+
+
+
+    // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
+    console.log('Ai检测中........')
     wx.chooseImage({
       count: 1,
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有 
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
-      success: function(res) {
-        console.log(res)
-        let img_url = res.tempFilePaths[0]
-        let index = img_url.lastIndexOf("/");
-        let fileName = img_url.substr(index + 1)
-        that.upload(fileName, img_url)
+      sizeType: ['compressed'],
+      success: function (res) {
+        console.log(res.tempFilePaths[0])
+        let filePath = res.tempFilePaths[0]
+        wx.getFileSystemManager().readFile({
+          filePath: filePath,
+          encoding: 'base64',
+          success(res) {
+            console.log(res)
+            // 拿到上传图片的base64编码
+            let base64ImgData = res.data
+            ocrRequest(base64ImgData, {
+              success(res) {
+                console.log(res)
+              },
+              fail(err) {
+                console.log(err)
+              }
+            })
+          },
+          fail(err) {
+            console.log('发生错误了', err)
+          }
+        })
+      },
+      fail(e) {
+        console.error(e)
       }
     })
   },
