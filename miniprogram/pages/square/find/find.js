@@ -1,5 +1,11 @@
 import WxValidate from '../../../utils/validate.js'
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
+import {
+  ocrRequest
+} from '../../../utils/face_ocr.js'
+import {
+  debounce
+} from '../../../utils/debounce.js'
 
 const app = getApp()
 var type1_validate, type2_validate
@@ -159,18 +165,66 @@ Page({
   onShareAppMessage: function() {
 
   },
+
   uploadImg: function() {
-    var that = this;
+    // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
+    let that = this
+    wx.showLoading({
+      title: 'AI检测中',
+    })
+
     wx.chooseImage({
       count: 1,
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有 
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
+      sizeType: ['compressed'],
       success: function(res) {
-        console.log(res)
-        let img_url = res.tempFilePaths[0]
-        let index = img_url.lastIndexOf("/");
-        let fileName = img_url.substr(index + 1)
-        that.upload(fileName, img_url)
+        console.log(res.tempFilePaths[0])
+        let filePath = res.tempFilePaths[0]
+        wx.getFileSystemManager().readFile({
+          filePath: filePath,
+          encoding: 'base64',
+          success(res) {
+            console.log(res)
+            // 拿到上传图片的base64编码
+            let base64ImgData = res.data
+            ocrRequest(base64ImgData, {
+              success(res) {
+                console.log(res)
+                if (res.code == 10000) {
+                  wx.hideLoading()
+                  wx.showModal({
+                    title: 'AI检测提示',
+                    content: 'Ai检测到图片中有人脸 \r\n建议打码后再上传',
+                    confirmColor: "#AE81F7",
+                    confirmText: '去打码',
+                    cancelText: '不打码',
+                    success(res) {
+                      if (res.confirm) {
+                        console.log('去手动打马了')
+                      } else if (res.cancel) {
+                        console.log('开始上传图片')
+                        let index = filePath.lastIndexOf("/");
+                        let fileName = filePath.substr(index + 1)
+                        that.upload(fileName, filePath)
+                      }
+                    },
+                    fail() {
+
+                    }
+                  })
+                }
+              },
+              fail(err) {
+                console.log(err)
+              }
+            })
+          },
+          fail(err) {
+            console.log('发生错误了', err)
+          }
+        })
+      },
+      fail(e) {
+        console.error(e)
       }
     })
   },
@@ -178,15 +232,23 @@ Page({
   //上传图片
   upload(fileName, img_url) {
     console.log('fileName', fileName)
+    wx.showLoading({
+      title: '图片上传中',
+    })
     let that = this
     wx.cloud.uploadFile({
       cloudPath: 'dxq/' + fileName,
       filePath: img_url,
       success: res => {
-        console.log(res)
+        wx.hideLoading()
         that.setData({
           hideAdd: true,
           img: res.fileID
+        })
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success',
+          duration: 1000
         })
       },
       fail: err => {
@@ -219,6 +281,7 @@ Page({
       multiIndex: e.detail.value
     })
   },
+
   MultiColumnChange(e) {
     console.log('e.detail.value', e.detail.value)
     let data = {
@@ -241,83 +304,89 @@ Page({
     }
     this.setData(data);
   },
+
   DateChange(e) {
     this.setData({
       date: e.detail.value
     })
   },
-  formSubmit(e) {
-    let that = this
-    let post_detail = e.detail.value
-    console.log('post_detail', post_detail)
-    let type_class = {
-      first_type: post_detail.type_class[0],
-      second_type: post_detail.type_class[1],
-    }
-    Object.assign(post_detail, type_class)
-    // console.log(post_detail)
-    this.setData({
-      postData: Object.assign(this.data.postData, post_detail)
-    })
 
-    if (post_detail.first_type === 0) {
-      if (!type1_validate.checkForm(post_detail)) {
-        const error = type1_validate.errorList[0];
-        Toast(error.msg);
-        return
+  formSubmit: debounce(
+    function(e) {
+      wx.showLoading({
+        title: '发布中'
+      })
+      let that = this
+      let post_detail = e.detail.value
+      console.log('post_detail', post_detail)
+      let type_class = {
+        first_type: post_detail.type_class[0],
+        second_type: post_detail.type_class[1],
       }
-    } else {
-      if (!type2_validate.checkForm(post_detail)) {
-        const error = type2_validate.errorList[0];
-        Toast(error.msg);
-        return
+      Object.assign(post_detail, type_class)
+      // console.log(post_detail)
+      this.setData({
+        postData: Object.assign(this.data.postData, post_detail)
+      })
+
+      if (post_detail.first_type === 0) {
+        if (!type1_validate.checkForm(post_detail)) {
+          const error = type1_validate.errorList[0];
+          Toast(error.msg);
+          return
+        }
+      } else {
+        if (!type2_validate.checkForm(post_detail)) {
+          const error = type2_validate.errorList[0];
+          Toast(error.msg);
+          return
+        }
       }
-    }
 
-    // 发送存储请求
-    wx.cloud.callFunction({
-      name: 'publish',
-      data: {
-        ...that.data.postData,
-        img: that.data.img,
-        user_id: wx.getStorageSync('openid'),
-        school_id: wx.getStorageSync('school_info').school_id
-      },
-      success: function(res) {
-        that.sendMsg()
-        wx.showToast({
-          title: '发布成功',
-          duration: 1500,
-          success: () => {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 1
-              })
-            }, 1500)
-          }
-        })
-      },
-      fail: console.error
-    })
+      // 发送存储请求
+      wx.cloud.callFunction({
+        name: 'publish',
+        data: {
+          ...that.data.postData,
+          img: that.data.img,
+          user_id: wx.getStorageSync('openid'),
+          school_id: wx.getStorageSync('school_info').school_id
+        },
+        success: function(res) {
+          wx.hideLoading()
+          that.sendMsg()
+          wx.showToast({
+            title: '发布成功',
+            duration: 1500,
+            success: () => {
+              setTimeout(() => {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1500)
+            }
+          })
+        },
+        fail: console.error
+      })
 
-  },
-
+    }, 1000),
 
   // 发送模板消息
   sendMsg() {
     let that = this
-    console.log('this.postData',that.postData)
+    console.log('this.postData', that.data.postData)
     wx.cloud.callFunction({
       name: 'push0524',
       data: {
-        lost_or_find_name: that.data.postData.lost_or_find_name ? that.postData.lost_or_find_name : '',
+        lost_or_find_name: that.data.postData.lost_or_find_name ? that.data.postData.lost_or_find_name : '',
         card_name: that.data.postData.card_name,
         card_number: that.data.postData.card_number,
         school_id: wx.getStorageSync('school_info').school_id
       },
       success(res) {
         console.log('推送成功', res)
-        if (res.result.data[0]){
+        if (res.result.data[0]) {
           wx.cloud.callFunction({
             name: 'send_model_message',
             data: {

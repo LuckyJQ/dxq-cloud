@@ -10,8 +10,8 @@
   </view>
 
   <view class="cu-list menu menu-avatar solid-bottom">
-    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}} published-item" wx:for="{{my_publish}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}" bindtap="getDetail" data-id="{{item._id}}">
-      <view class="text-info">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}} published-item" wx:for="{{my_publish}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}"  >
+      <view class="text-info" bindtap="getDetail" data-id="{{item._id}}">
         <view class="text-left">
           <view style="width:200rpx;">
             <view class='cu-tag bg-theme radius sm margin-right-xs'>{{item.publish_type===0?'捡到':'丢失'}}</view>

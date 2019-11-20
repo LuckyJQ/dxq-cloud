@@ -113,10 +113,13 @@ Page({
   },
 
   getDetail(e){
-    let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/square/detail/detail?id=' + id,
-    })
+    console.log('this.data.modalName', this.data.modalName)
+    if(!this.data.modalName){
+      let id = e.currentTarget.dataset.id
+      wx.navigateTo({
+        url: '/pages/square/detail/detail?id=' + id,
+      })
+    }
   },
 
   getDel(e){

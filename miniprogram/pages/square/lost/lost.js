@@ -3,7 +3,9 @@ import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
 import {
   debounce
 } from '../../../utils/debounce.js'
-import { ocrRequest} from '../../../utils/face_ocr.js'
+import {
+  ocrRequest
+} from '../../../utils/face_ocr.js'
 
 const app = getApp()
 var type1_validate, type2_validate
@@ -220,31 +222,16 @@ Page({
   //   })
   // },
   uploadImg: function() {
-    // var that = this;
-    // wx.chooseImage({
-    //   count: 1,
-    //   sizeType: ['compressed'], 
-    //   sourceType: ['album', 'camera'],
-    //   success: function(res) {
-    //     console.log(res)
-    //     let img_url = res.tempFilePaths[0]
-    //     let index = img_url.lastIndexOf("/");
-    //     let fileName = img_url.substr(index + 1)
-    //     that.upload(fileName, img_url)
-    //   }
-    // })
-
-
-
-
-
-
     // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
-    console.log('Ai检测中........')
+    let that = this
+    wx.showLoading({
+      title: 'AI检测中',
+    })
+
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
-      success: function (res) {
+      success: function(res) {
         console.log(res.tempFilePaths[0])
         let filePath = res.tempFilePaths[0]
         wx.getFileSystemManager().readFile({
@@ -257,6 +244,29 @@ Page({
             ocrRequest(base64ImgData, {
               success(res) {
                 console.log(res)
+                if (res.code == 10000) {
+                  wx.hideLoading()
+                  wx.showModal({
+                    title: 'AI检测提示',
+                    content: 'Ai检测到图片中有人脸 \r\n建议打码后再上传',
+                    confirmColor: "#AE81F7",
+                    confirmText: '去打码',
+                    cancelText: '不打码',
+                    success(res) {
+                      if (res.confirm) {
+                        console.log('去手动打马了')
+                      } else if (res.cancel) {
+                        console.log('开始上传图片')
+                        let index = filePath.lastIndexOf("/");
+                        let fileName = filePath.substr(index + 1)
+                        that.upload(fileName, filePath)
+                      }
+                    },
+                    fail() {
+
+                    }
+                  })
+                }
               },
               fail(err) {
                 console.log(err)
@@ -277,15 +287,23 @@ Page({
   //上传图片
   upload(fileName, img_url) {
     console.log('fileName', fileName)
+    wx.showLoading({
+      title: '图片上传中',
+    })
     let that = this
     wx.cloud.uploadFile({
       cloudPath: 'dxq/' + fileName,
       filePath: img_url,
       success: res => {
-        console.log(res)
+        wx.hideLoading()
         that.setData({
           hideAdd: true,
           img: res.fileID
+        })
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success',
+          duration: 1000
         })
       },
       fail: err => {
@@ -348,6 +366,9 @@ Page({
 
   formSubmit: debounce(
     function(e) {
+      wx.showLoading({
+        title: '发布中'
+      })
       let that = this
       let post_detail = e.detail.value
       console.log('post_detail', post_detail)
@@ -388,6 +409,7 @@ Page({
         },
         success: function(res) {
           console.log(res)
+          wx.hideLoading()
           wx.showToast({
             title: '发布成功',
             duration: 1500,
@@ -402,5 +424,5 @@ Page({
         },
         fail: console.error
       })
-    }, 10000)
+    }, 1000)
 })
