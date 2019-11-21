@@ -13,6 +13,10 @@ page {
   color: white
 }
 
+.text-theme {
+  color: #AE81F7;
+}
+
 .img{
     max-width: 100%;
     height: 100%;

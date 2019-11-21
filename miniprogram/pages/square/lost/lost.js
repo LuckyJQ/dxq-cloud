@@ -82,6 +82,7 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     hideAdd: false,
+    modalStatus: false,
     date: new Date().format("yyyy-MM-dd"),
     // end_time: new Date().toLocaleString().split(' ')[0].split('/').join('-'),
     end_time: new Date().format("yyyy-MM-dd"),
@@ -90,6 +91,10 @@ Page({
     multiArray: [
       ['卡证类', '非卡证类'],
       ['一卡通', '身份证', '学生证', '其他']
+    ],
+    typeArray: [
+      ['一卡通', '身份证', '学生证', '其他'],
+      ['电子', '书本', '生活', '其他']
     ],
     postData: {
       first_type: null,
@@ -108,126 +113,49 @@ Page({
       publish_type: 1,
       isrich: false,
       istop: false
-    }
+    },
+    possibleData:[]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
     app.checkIfSelectedSchool()
     initValidate()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  checkIfCardExist(data) {
+    let that = this
+    console.log(data)
+    wx.cloud.callFunction({
+      name: 'check_if_card_exist',
+      data: {
+        nameKw: data.nameKw,
+        numKw: data.numKw,
+        school_id: wx.getStorageSync('school_info').school_id
+      },
+      success: res => {
+        console.log('卡证类检测res', res)
+        if (res.result.check_result.data.length) {
+          that.setData({
+            modalStatus: true,
+            possibleData: res.result.check_result.data
+          })
+        } else {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-  // checkIfNameExist(e) {
-  //   console.log(e.detail.value)
-  //   wx.cloud.callFunction({
-  //     name:'check_if_obj_exist',
-  //     data:{
-  //       kw: e.detail.value,
-  //       school_id: wx.getStorageSync('school_info').school_id
-  //     },
-  //     success: res=>{
-  //       console.log(res)
-  //       let len = res.result.check_result.data.length
-  //       if (len){
-  //         wx.showModal({
-  //           title: '温馨提示',
-  //           content: `有${len}条数据和你匹配，是否立刻查看？`,
-  //           confirmColor: "#AE81F7",
-  //           success(res) {
-  //             console.log('我要跳转了')
-  //           }
-  //         })
-  //       }
-  //     },
-  //     fail: err=>{
-  //       console.log(err)
-  //     }
-  //   })
-  // },
-  // checkIfCardNumberExist(e) {
-  //   console.log(e.detail.value)
-  //   wx.cloud.callFunction({
-  //     name: 'check_if_obj_exist',
-  //     data: {
-  //       cardnum: e.detail.value,
-  //       school_id: wx.getStorageSync('school_info').school_id
-  //     },
-  //     success: res => {
-  //       console.log(res)
-  //       let len = res.result.check_result.data.length
-  //       if (len) {
-  //         wx.showModal({
-  //           title: '温馨提示',
-  //           content: `有${len}条数据和你匹配，是否立刻查看？`,
-  //           confirmColor: "#AE81F7",
-  //           success(res) {
-  //             console.log('我要跳转了')
-  //           }
-  //         })
-  //       }
-  //     },
-  //     fail: err => {
-  //       console.log(err)
-  //     }
-  //   })
-  // },
   uploadImg: function() {
     // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
     let that = this
-    wx.showLoading({
-      title: 'AI检测中',
-    })
-
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
@@ -239,6 +167,10 @@ Page({
           encoding: 'base64',
           success(res) {
             console.log(res)
+            wx.showLoading({
+              title: 'AI检测中',
+            })
+
             // 拿到上传图片的base64编码
             let base64ImgData = res.data
             ocrRequest(base64ImgData, {
@@ -385,13 +317,15 @@ Page({
 
       if (post_detail.first_type === 0) {
         if (!type1_validate.checkForm(post_detail)) {
-          const error = type1_validate.errorList[0];
+          const error = type1_validate.errorList[0]
+          wx.hideLoading()
           Toast(error.msg);
           return
         }
       } else {
         if (!type2_validate.checkForm(post_detail)) {
-          const error = type2_validate.errorList[0];
+          const error = type2_validate.errorList[0]
+          wx.hideLoading()
           Toast(error.msg);
           return
         }
@@ -414,15 +348,27 @@ Page({
             title: '发布成功',
             duration: 1500,
             success: () => {
-              setTimeout(() => {
-                wx.navigateBack({
-                  delta: 1
+
+              // 如果是卡证类，不调用AI，直接使用姓名和卡号去查询
+              if(that.data.postData == 0){
+                that.checkIfCardExist({
+                  nameKw: that.data.postData.card_name,
+                  numKw: that.data.postData.card_number,
                 })
-              }, 1500)
+              }else{
+                // 非卡证类，拿到详情描述请求AI接口分词，结合物品名称进行数据库查询
+              }
             }
           })
         },
         fail: console.error
       })
-    }, 1000)
+    }, 1000),
+
+
+  closeModal(){
+    this.setData({
+      modalStatus: false
+    })
+  }
 })

@@ -14,8 +14,8 @@
   </view>
 
   <view class="my-tab">
-    <view class="my-tab-item {{isFind ? 'blod': ''}}" bindtap="changeType" data-publish_type="0">捡到的物品</view>
-    <view class="my-tab-item {{!isFind ? 'blod': ''}}" bindtap="changeType" data-publish_type="1" style="border:none">丢失的物品</view>
+    <view class="my-tab-item {{isFind ? 'blod': ''}}" bindtap="changeTypeFind" data-publish_type="0">捡到的物品</view>
+    <view class="my-tab-item {{!isFind ? 'blod': ''}}" bindtap="changeTypeLost" data-publish_type="1" style="border:none" >丢失的物品</view>
   </view>
 
   <van-tabs color="#AE81F7" active="{{ active }}" bind:change="onTabChange">

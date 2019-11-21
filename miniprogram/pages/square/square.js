@@ -120,15 +120,27 @@ Page({
     })
   },
 
-  changeType(e) {
-    // console.log('e', e.currentTarget.dataset.publish_type)
-    let publish_type = parseInt(e.currentTarget.dataset.publish_type)
-    this.setData({
-      isFind: !this.data.isFind,
-      publish_type,
-      active: 0
-    })
-    this._getPublishList(publish_type)
+  changeTypeFind(e) {
+    if(!this.data.isFind){
+      let publish_type = parseInt(e.currentTarget.dataset.publish_type)
+      this.setData({
+        isFind: true,
+        publish_type,
+        active: 0
+      })
+      this._getPublishList(publish_type)
+    }
+  },
+  changeTypeLost(e) {
+    if(this.data.isFind){
+      let publish_type = parseInt(e.currentTarget.dataset.publish_type)
+      this.setData({
+        isFind: false,
+        publish_type,
+        active: 0
+      })
+      this._getPublishList(publish_type)
+    }
   },
 
   onTabChange(e) {

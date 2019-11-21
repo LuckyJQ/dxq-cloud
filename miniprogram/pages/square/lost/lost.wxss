@@ -47,3 +47,34 @@ page {
   margin-top: 40rpx;
   margin-bottom: 40rpx;
 }
+
+
+
+
+
+
+
+
+
+
+.published-item {
+  padding-left: 20rpx !important;
+  height: 120rpx !important;
+  background-color: #f8f8f8 !important;
+}
+
+.text-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.text-info .text-left{
+  display: flex;
+  align-items: center;
+}
+
+.res-modal {
+  z-index: 999999 !important;
+}

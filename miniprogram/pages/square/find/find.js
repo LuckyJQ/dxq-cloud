@@ -331,13 +331,15 @@ Page({
 
       if (post_detail.first_type === 0) {
         if (!type1_validate.checkForm(post_detail)) {
-          const error = type1_validate.errorList[0];
+          const error = type1_validate.errorList[0]
+          wx.hideLoading()
           Toast(error.msg);
           return
         }
       } else {
         if (!type2_validate.checkForm(post_detail)) {
-          const error = type2_validate.errorList[0];
+          const error = type2_validate.errorList[0]
+          wx.hideLoading()
           Toast(error.msg);
           return
         }
