@@ -3,83 +3,36 @@ import {
 } from '../../../utils/throttle.js'
 const app = getApp()
 
-// function throttle(fn, wait) {
-//   return function (...args) {
-//     if (!timer) {
-//       timer = setTimeout(() => {
-//         timer = null
-//         fn.apply(this, args)
-//       }, wait)
-//     }
-//   }
-// }
-
-
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    schools: [],
+    schools: [{
+      school_belong: "教育部",
+      school_city: "西安市",
+      school_id: "4161010701",
+      school_name: "西安电子科技大学",
+      school_type: "本科",
+      _id: "sx4Q86EFArYIoVI3XHei7DW6jhcSItTVTl9d4mdOoPWANSUw"
+    }, {
+      school_belong: "教育部",
+      school_city: "西安市",
+      school_id: "4161010718",
+      school_name: "陕西师范大学",
+      school_type: "本科",
+      _id: "kPzcNjGipaPEmNkkFAYkLbQsDsxx3HcMm7iUaTzQuX0q4lrn"
+    }, {
+      school_belong: "教育部",
+      school_city: "西安市",
+      school_id: "4161010698",
+      school_name: "西安交通大学",
+      school_type: "本科",
+      _id: "vdP2imBO0Ns02mt6hmHo8MNG6t3sDO7SBXi0Z7fkL7YqAj9M"
+    }],
     loading: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
 
   },
 
@@ -106,27 +59,6 @@ Page({
     })
   },
 
-  // 截流函数
-  // throttle(fn, wait) {
-  //   return function(...args) {
-  //     if (!timer) {
-  //       timer = setTimeout(() => {
-  //         timer = null
-  //         fn.apply(this, args)
-  //       }, wait)
-  //     }
-  //   }
-  // },
-
-
-  // onSearch(e) {
-  //   this.setData({
-  //     loading: true
-  //   })
-  //   this.throttle(this._onSearch.bind(this, e), 500)()
-  // },
-
-
   onSearch: throttle(
     function(e) {
       const that = this
@@ -146,6 +78,5 @@ Page({
           })
         }
       })
-    }, 500)
-
+    }, 300)
 })

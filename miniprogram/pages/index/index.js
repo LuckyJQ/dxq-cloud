@@ -7,7 +7,8 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    school: '未选择'
+    school: '未选择',
+    notice:'丢小墙上线啦，欢迎使用👏~遇到BUG记得联系我们哦💗～'
   },
 
   /**
@@ -87,8 +88,11 @@ Page({
     }
   },
   toWeek(){
-    wx.navigateTo({
-      url: '/pages/index/week/week',
+    wx.showModal({
+      title: '一个提醒',
+      content: 'φ(≧ω≦*)♪还在开发中\r\n过几天再来看吧～',
+      showCancel:false,
+      confirmColor: '#AE81F7'
     })
   },
   cardSwiper(e) {
@@ -100,5 +104,8 @@ Page({
     wx.navigateTo({
       url: '/pages/index/school/school',
     })
+  },
+  getNotice(e){
+    console.log(e)
   }
 })

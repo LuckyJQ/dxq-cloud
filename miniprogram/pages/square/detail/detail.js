@@ -155,7 +155,7 @@ Page({
       itemList: ['发送给好友', '生成分享图'],
       success(res) {
         console.log(res.tapIndex)
-        if (res.tapIndex === 1){
+        if (res.tapIndex === 1) {
           that.setData({
             show: true,
             template: new Card().palette({
@@ -183,5 +183,20 @@ Page({
     this.setData({
       show: false
     });
+  },
+
+  copyPhone() {
+    wx.setClipboardData({
+      data: this.data.publish_detail.concat,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            wx.showToast({
+              title: '复制成功'
+            })
+          }
+        })
+      }
+    })
   }
 })

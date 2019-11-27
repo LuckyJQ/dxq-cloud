@@ -7,9 +7,6 @@
     "pages/square/square",
     "pages/square/detail/detail",
     "pages/my/my",
-    "pages/square/help/help",
-    "pages/my/my-info/my-info",
-    "pages/my/system-info/system-info",
     "pages/my/my-publish/my-publish",
     "pages/my/help/help",
     "pages/my/concat/concat",
@@ -17,7 +14,8 @@
     "pages/index/school/school",
     "pages/square/search/search",
     "pages/index/week/week",
-    "pages/test/test"
+    "pages/my/backstage/backstage",
+    "pages/test2/test2"
   ],
   "window": {
     "backgroundTextStyle": "light",

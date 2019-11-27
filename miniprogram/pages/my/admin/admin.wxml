@@ -6,4 +6,41 @@
       </navigator>
     </view>
   </view>
+
+  <form bindsubmit="formSubmit" report-submit='true'>
+    <view class="cu-form-group margin-top">
+      <view class='title'>微信号</view>
+      <input placeholder="" class='radius' name='wechat'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>手机号</view>
+      <input placeholder="" class='radius' name='phone'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>申请高校名称</view>
+      <input placeholder="" class='radius' value="{{school_info.school}}" disabled="true" name='school'></input>
+    </view>
+
+    <view class="margin-top">
+      <text style="padding:0 30rpx;">请上传学生证（仅用于身份验证）</text>
+      <view class="cu-form-group margin-top">
+        <view class="flex-sub padding-tb">
+          <view class="solids upload-img-button" bindtap="uploadImg" wx:if="{{!hideAdd}}">
+            <text class='icon-cameraadd '></text>
+          </view>
+          <view class="solids upload-img-button" wx:if="{{hideAdd}}">
+            <image src="{{img}}" mode="widthFix" style="height:auto"></image>
+            <view class="mask"></view>
+            <text class="icon-deletefill close-button" bindtap="removeImg"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="padding-xl flex flex-direction" style="margin-top:120rpx;">
+      <button class='cu-btn bg-theme lg btn-bottom' form-type="submit">提交</button>
+    </view>
+  </form>
+
+  <van-toast id="van-toast" />
 </view>

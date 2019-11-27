@@ -12,7 +12,7 @@
     </swiper-item>
   </swiper>
 
-  <van-notice-bar left-icon="http://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png" text="通知通知通知通知通知通知通知通知通知通知通知通知通知通知" />
+  <van-notice-bar left-icon="http://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png" text="{{notice}}" bind:click="getNotice" />
 
   <view class="buttons">
     <view class="button-item text-center" bindtap="toLost" style="box-shadow: 0 0 20rpx rgba(234, 50, 35, 0.5);">

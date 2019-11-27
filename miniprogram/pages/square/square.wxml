@@ -15,7 +15,7 @@
 
   <view class="my-tab">
     <view class="my-tab-item {{isFind ? 'blod': ''}}" bindtap="changeTypeFind" data-publish_type="0">捡到的物品</view>
-    <view class="my-tab-item {{!isFind ? 'blod': ''}}" bindtap="changeTypeLost" data-publish_type="1" style="border:none" >丢失的物品</view>
+    <view class="my-tab-item {{!isFind ? 'blod': ''}}" bindtap="changeTypeLost" data-publish_type="1" style="border:none">丢失的物品</view>
   </view>
 
   <van-tabs color="#AE81F7" active="{{ active }}" bind:change="onTabChange">
@@ -29,7 +29,10 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
     <van-tab title="卡证">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
@@ -40,7 +43,10 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
     <van-tab title="电子">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
@@ -51,7 +57,11 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
+
     <van-tab title="书本">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
@@ -62,7 +72,10 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
     <van-tab title="生活">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
@@ -73,7 +86,11 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
+
     <van-tab title="其他">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
@@ -84,18 +101,10 @@
         <text class="margin-top-sm">{{item.description}}</text>
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
+      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
     </van-tab>
+
+
   </van-tabs>
-
-  <!-- <view bind:tap="onPublish" style="display:inline-block">
-    <button class='cu-btn icon-add bg-theme shadow add-button'></button>
-  </view> -->
-
-  <!-- 发布按钮组件，有点繁琐，先取消了 -->
-  <!-- <view class="add-button">
-    <add-btn bind:add="onAdd"></add-btn>
-  </view> -->
-
   <loading class="loading-center" wx:if="{{loading}}"></loading>
-
 </view>

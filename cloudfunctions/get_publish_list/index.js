@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
         publish_type: event.publish_type,
         first_type: event.first_type,
         second_type: event.second_type
-      }).orderBy('publish_time', 'desc').get()
+      }).orderBy('istop', 'desc').orderBy('publish_time', 'desc').get()
     }
   } else {
     return {

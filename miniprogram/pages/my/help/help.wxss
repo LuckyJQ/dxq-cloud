@@ -1,1 +1,25 @@
-/* pages/my/help/help.wxss */
+.tips {
+  display: flex;
+  flex-direction: column;
+  padding: 80rpx 40rpx 0 40rpx; 
+}
+
+.tips .title {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.tips text {
+  margin-top: 20rpx;
+  font-size: 14px;
+  line-height: 180%;
+}
+
+.bottom-logo {
+  width: 160rpx;
+  height: auto;
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -80rpx;
+}

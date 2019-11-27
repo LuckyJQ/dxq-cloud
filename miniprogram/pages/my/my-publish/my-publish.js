@@ -25,7 +25,8 @@ Page({
     })
 
     let user_id = wx.getStorageSync('openid')
-    this._getPublish(user_id)
+    let school_id = wx.getStorageSync('school_info').school_id
+    this._getPublish(user_id, school_id)
   },
 
   /**
@@ -139,12 +140,13 @@ Page({
     })
   },
 
-  _getPublish(user_id){
+  _getPublish(user_id, school_id){
     let that = this
     wx.cloud.callFunction({
       name: 'get_my_publish',
       data: {
-        user_id
+        user_id,
+        school_id
       },
       success: (res) => {
         let my_publish = res.result.my_publish.data

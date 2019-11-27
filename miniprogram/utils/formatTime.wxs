@@ -35,6 +35,16 @@ function formatTime(dateTimeStamp) {
   return result;
 };
 
+
+function formatCardNum(str) {
+  if (str.length > 4) {
+    return str.slice(0, str.length - 4).concat('****')
+  } else {
+    return str
+  }
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  formatCardNum: formatCardNum
 };

@@ -6,4 +6,15 @@
       </navigator>
     </view>
   </view>
+
+  <view class="tips">
+    <text class="title">丢小墙Tips</text>
+    <text>1.发布卡证类失物时对图片进行AI检测，提醒上传者进行打码处理。</text>
+    <text>2.丢失者先于拾到者发布：当拾到者发布后丢失者将收到微信推送，获取发布信息</text>
+    <text>3.拾到者先于丢失者发布：当丢失者发布后，通过AI接口匹配数据库中描述最相似的失物，展示给丢失者。</text>
+    <text>4.以高校为单位进行区域划分，设置区域管理员（申请审核后获得权限），可以对该区域内帖子进行删除和置顶操作。</text>
+    <text>5.发布失物时记得描述详细些哦，这样可以大大增加AI的匹配程度。</text>
+  </view>
+
+  <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
 </view>

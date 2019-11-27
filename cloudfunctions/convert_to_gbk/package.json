@@ -1,0 +1,15 @@
+{
+  "name": "convert_to_gbk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "iconv": "^2.3.5",
+    "wx-server-sdk": "^1.5.3"
+  }
+}

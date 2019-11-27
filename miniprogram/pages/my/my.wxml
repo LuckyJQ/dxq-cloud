@@ -46,6 +46,11 @@
 
   <view class="cu-list menu  margin-top">
     <view class="cu-item arrow">
+      <view class='content' bindtap='goAdminEntrance'>
+        <text>区域管理员入口</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
       <view class='content' bindtap='getAdmin'>
         <text>申请区域管理员</text>
       </view>
@@ -53,6 +58,4 @@
   </view>
 
   <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
-
-
 </view>

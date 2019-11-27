@@ -1,4 +1,6 @@
 <wxs src="../../../utils/formatTime.wxs" module="time" />
+<!-- <wxs src="../../../utils/formatCardNum.wxs" module="card" /> -->
+
 
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
@@ -11,25 +13,31 @@
 
   <view class="tab-container">
     <view class="tab-top">
+      <view class='cu-tag bg-theme radius sm margin-right-xs'>{{publish_detail.publish_type===0?'捡到':'丢失'}}</view>
       <view class='cu-tag bg-theme radius sm'>{{typeArray[publish_detail.first_type][publish_detail.second_type]}}</view>
+
       <text class="title">{{publish_detail.name ? publish_detail.name : publish_detail.card_name}}</text>
       <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(publish_detail.publish_time)}}</text>
     </view>
+
+
+
+
     <text class="content">{{publish_detail.description}}</text>
     <image src="{{imgUrl}}" mode="widthFix"></image>
 
     <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===0}}">
-      <text wx:if="{{publish_detail.card_number}}">卡号：{{publish_detail.card_number}}</text>
+      <text wx:if="{{publish_detail.card_number}}">卡号：{{time.formatCardNum(publish_detail.card_number)}}</text>
       <text>捡到时间：{{publish_detail.lost_or_find_time}}</text>
       <text>捡到地点：{{publish_detail.lost_or_find_place}}</text>
-      <text>联系方式：{{publish_detail.concat}}</text>
+      <text bindtap="copyPhone">联系方式：{{publish_detail.concat}}</text>
     </view>
 
     <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===1}}">
       <text>感谢金：{{publish_detail.thanks ? publish_detail.thanks: '未设置' }}</text>
       <text>丢失时间：{{publish_detail.lost_or_find_time}}</text>
       <text>丢失地点：{{publish_detail.lost_or_find_place}}</text>
-      <text>联系方式：{{publish_detail.concat}}</text>
+      <text bindtap="copyPhone">联系方式：{{publish_detail.concat}}</text>
     </view>
 
     <view class="padding-xl flex flex-direction margin-top-xl">

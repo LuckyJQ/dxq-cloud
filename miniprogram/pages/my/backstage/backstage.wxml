@@ -1,0 +1,44 @@
+<wxs src="../../../utils/formatTime.wxs" module="time" />
+
+
+<view>
+  <view class="cu-custom solid-bottom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 管理员
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-bar search bg-white">
+    <view class='search-form round'>
+      <text class="icon-search"></text>
+      <input type="text" placeholder="搜索帖子" bindblur="getInput" confirm-type="search"></input>
+    </view>
+    <view class='action'>
+      <button class='cu-btn bg-theme shadow-blur round' style="height:58rpx;">搜索</button>
+    </view>
+  </view>
+
+
+  <view class="cu-list menu">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{publish_list}}" wx:key bindtouchstart='ListTouchStart' bindtouchmove='ListTouchMove' bindtouchend='ListTouchEnd' data-target="move-box-{{index}}">
+      <view class="text-info" bindtap="getDetail" data-id="{{item._id}}">
+        <view class="text-left">
+          <view style="width:200rpx;">
+            <view class='cu-tag bg-theme radius sm margin-right-xs' wx:if="{{item.isrich}}">{{item.isrich ?'贵重':''}}</view>
+            <view class='cu-tag bg-theme radius sm margin-right-sm'>{{item.istop ?'已置顶':'未置顶'}}</view>
+          </view>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
+        </view>
+        <text class="text-gray text-sm">{{time.formatTime(item.publish_time)}}</text>
+      </view>
+      <view class='move'>
+        <view class='bg-grey' data-id="{{item._id}}" bindtap="setPublishTop">置顶</view>
+        <view class="bg-red" data-id="{{item._id}}" bindtap="delPublish">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <loading class="loading-center" wx:if="{{loading}}"></loading>
+</view>

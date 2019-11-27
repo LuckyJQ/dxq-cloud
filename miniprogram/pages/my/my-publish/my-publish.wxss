@@ -29,3 +29,14 @@
   bottom: 0;
   background-color: #fff;
 }
+
+.title {
+  width: 360rpx;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 20rpx;
+  line-height: 48rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

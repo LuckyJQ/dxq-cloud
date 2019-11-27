@@ -25,7 +25,7 @@ function initValidate() {
     },
     concat: {
       required: true,
-      tel: true
+      // tel: true
     }
   }, {
     card_name: {
@@ -40,7 +40,7 @@ function initValidate() {
     },
     concat: {
       required: '请输入联系方式',
-      tel: '手机号格式错误'
+      // tel: '手机号格式错误'
     }
   })
 
@@ -55,7 +55,7 @@ function initValidate() {
     },
     concat: {
       required: true,
-      tel: true
+      // tel: true
     }
   }, {
     name: {
@@ -67,7 +67,7 @@ function initValidate() {
     },
     concat: {
       required: '请输入联系方式',
-      tel: '手机号格式错误'
+      // tel: '手机号格式错误'
     }
   })
 }
@@ -114,7 +114,7 @@ Page({
       isrich: false,
       istop: false
     },
-    possibleData:[]
+    possibleData: []
   },
 
   onLoad: function(options) {
@@ -198,10 +198,19 @@ Page({
 
                     }
                   })
+                }else{
+                  wx.hideLoading()
+                  let index = filePath.lastIndexOf("/");
+                  let fileName = filePath.substr(index + 1)
+                  that.upload(fileName, filePath)
                 }
               },
               fail(err) {
-                console.log(err)
+                wx.hideLoading()
+                wx.showModal({
+                  title: 'Ai检测提醒',
+                  content: '未知错误，请稍后再试',
+                })
               }
             })
           },
@@ -282,7 +291,7 @@ Page({
             data.multiArray[1] = ['一卡通', '身份证', '学生证', '其他'];
             break;
           case 1:
-            data.multiArray[1] = ['书本', '电子', '生活', '其他'];
+            data.multiArray[1] = ['电子', '书本', '生活', '其他'];
             break;
         }
         data.multiIndex[1] = 0;
@@ -298,9 +307,6 @@ Page({
 
   formSubmit: debounce(
     function(e) {
-      wx.showLoading({
-        title: '发布中'
-      })
       let that = this
       let post_detail = e.detail.value
       console.log('post_detail', post_detail)
@@ -331,6 +337,10 @@ Page({
         }
       }
 
+      wx.showLoading({
+        title: '发布中'
+      })
+
       //发送存储请求
       wx.cloud.callFunction({
         name: 'publish',
@@ -350,13 +360,15 @@ Page({
             success: () => {
 
               // 如果是卡证类，不调用AI，直接使用姓名和卡号去查询
-              if(that.data.postData == 0){
+              if (that.data.postData.first_type == 0) {
                 that.checkIfCardExist({
                   nameKw: that.data.postData.card_name,
                   numKw: that.data.postData.card_number,
                 })
-              }else{
+              } else {
                 // 非卡证类，拿到详情描述请求AI接口分词，结合物品名称进行数据库查询
+                let words = that.data.postData.name + '，' + that.data.postData.description
+                that.divideWords(words)
               }
             }
           })
@@ -366,9 +378,73 @@ Page({
     }, 1000),
 
 
-  closeModal(){
+  closeModal() {
     this.setData({
       modalStatus: false
+    })
+  },
+
+  goToPossible(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/square/detail/detail?id=' + id,
+    })
+  },
+
+
+  // AI分词
+  divideWords(words) {
+    let that = this
+    let url = 'https://www.mhyang.cn/ai/wordpos?word=';
+    wx.request({
+      url: url + words,
+      success(res) {
+        console.log(res.data.data)
+        let data = res.data.data.mix_tokens
+        let kw_arr = []
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].pos_code == 1 || data[i].pos_code == 16) {
+            kw_arr.push(data[i].word)
+          }
+        }
+        kw_arr = Array.from(new Set(kw_arr))
+        console.log(kw_arr)
+        that.getPossible.bind(that)(kw_arr)
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
+
+  // 拿分词去查询数据库
+  getPossible(kw_arr) {
+    let that = this
+    wx.cloud.callFunction({
+      name: 'get_possible_ai',
+      data: {
+        kw_arr,
+        school_id: wx.getStorageSync('school_info').school_id,
+        del_status: false
+      },
+      success(res) {
+        console.log(res)
+        if (res.result.search_result.length) {
+          that.setData({
+            modalStatus: true,
+            possibleData: res.result.search_result
+          })
+        } else {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        }
+      },
+      fail(err) {
+        console.log(err)
+      }
     })
   }
 })

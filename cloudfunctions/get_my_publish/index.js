@@ -12,7 +12,8 @@ exports.main = async (event, context) => {
     //获取帖子详情
     my_publish: await db.collection('publish_collection').where({
       del_status: false,
-      user_id: event.user_id
+      user_id: event.user_id,
+      school_id: event.school_id
     }).orderBy('publish_time', 'desc').get(),
   }
 }

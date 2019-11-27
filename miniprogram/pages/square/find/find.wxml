@@ -65,7 +65,7 @@
       </view>
       <view class="cu-form-group">
         <view class='title '>联系方式</view>
-        <input placeholder="请输入你的联系方式" class='radius' name='concat'></input>
+        <input placeholder="QQ，微信，手机号" class='radius' name='concat'></input>
       </view>
     </view>
 

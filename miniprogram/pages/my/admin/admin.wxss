@@ -1,1 +1,34 @@
-/* pages/my/admin/admin.wxss */
+page {
+  background-color: #F5F5F5;
+}
+
+
+.upload-img-button {
+  position: relative;
+  width:200rpx;
+  height:200rpx;
+  text-align:center;
+  font-size:56rpx;
+  line-height:200rpx;
+  color:#ccc;
+  overflow:hidden;
+}
+
+.mask {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.close-button {
+  line-height: 40rpx;
+  position: absolute;
+  display: block;
+  font-size: 56rpx;
+  top:72rpx;
+  left: 72rpx;
+}

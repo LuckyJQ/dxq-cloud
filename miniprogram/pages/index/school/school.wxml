@@ -10,7 +10,7 @@
   <view class="cu-bar search bg-theme">
     <view class='search-form round'>
       <text class="icon-search"></text>
-      <input type="text" bindinput="onSearch" placeholder="下方没有，请搜索高校" confirm-type="search"></input>
+      <input type="text" bindinput="onSearch" bindconfirm="onSearch" placeholder="下方没有，请搜索高校" confirm-type="search"></input>
     </view>
   </view>
 

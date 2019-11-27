@@ -30,7 +30,8 @@ exports.main = async(event, context) => {
           })
         }
       ]).and([{
-        del_status: false
+        del_status: false,
+        school_id: event.school_id
       }])
     ).orderBy('publish_time', 'desc').get()
   }

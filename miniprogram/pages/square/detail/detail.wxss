@@ -34,6 +34,10 @@
   font-weight: 500;
   margin-left: 20rpx;
   line-height: 48rpx;
+  width: 360rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tab-bottom {

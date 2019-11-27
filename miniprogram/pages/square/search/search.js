@@ -9,6 +9,10 @@ Page({
     CustomBar: app.globalData.CustomBar,
     search_result: [],
     loading: false,
+    typeArray: [
+      ['一卡通', '身份证', '学生证', '其他'],
+      ['电子', '书本', '生活', '其他']
+    ]
   },
 
   /**
@@ -76,7 +80,8 @@ Page({
     wx.cloud.callFunction({
       name: 'get_search',
       data: {
-        kw
+        kw,
+        school_id: wx.getStorageSync('school_info').school_id
       },
       success: (res) => {
         console.log(res)

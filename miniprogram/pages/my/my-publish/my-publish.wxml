@@ -17,7 +17,7 @@
             <view class='cu-tag bg-theme radius sm margin-right-xs'>{{item.publish_type===0?'捡到':'丢失'}}</view>
             <view class='cu-tag bg-theme radius sm margin-right-sm'>{{typeArray[item.first_type][item.second_type]}}</view>
           </view>
-          <text>{{item.name ? item.name : item.card_name}}</text>
+          <text class="title">{{item.name ? item.name : item.card_name}}</text>
         </view>
         <text class="text-gray text-sm">{{time.formatTime(item.publish_time)}}</text>
       </view>

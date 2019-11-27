@@ -121,6 +121,9 @@ Page({
   },
 
   changeTypeFind(e) {
+    this.setData({
+      publish_list: []
+    })
     if(!this.data.isFind){
       let publish_type = parseInt(e.currentTarget.dataset.publish_type)
       this.setData({
