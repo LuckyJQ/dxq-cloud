@@ -2,7 +2,7 @@
 	"miniprogramRoot": "miniprogram/",
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -20,7 +20,7 @@
 			"outputPath": ""
 		}
 	},
-	"appid": "wxfdb9962985bc6361",
+	"appid": "wx4dd207f3ea9cc30b",
 	"projectname": "dxq-cloud",
 	"libVersion": "2.9.3",
 	"simulatorType": "wechat",

@@ -384,37 +384,40 @@ Page({
   sendMsg() {
     let that = this
     console.log('this.postData', that.data.postData)
-    wx.cloud.callFunction({
-      name: 'push0524',
-      data: {
-        lost_or_find_name: that.data.postData.lost_or_find_name ? that.data.postData.lost_or_find_name : '',
-        card_name: that.data.postData.card_name,
-        card_number: that.data.postData.card_number,
-        school_id: wx.getStorageSync('school_info').school_id
-      },
-      success(res) {
-        console.log('推送成功', res)
-        if (res.result.data[0]) {
-          wx.cloud.callFunction({
-            name: 'send_model_message',
-            data: {
-              formId: res.result.data[0].form_id,
-              // receive_obj: res.result.data[0],
-              findersData: that.data.postData,
-              toLoster: res.result.data[0].userInfo
-            },
-            success(res) {
-              console.log('模版消息', res)
-            },
-            fail(e) {
-              console.log('模版消息失败', e)
-            }
-          })
+    if (that.data.postData.first_type == 0){
+      wx.cloud.callFunction({
+        name: 'push0524',
+        data: {
+          lost_or_find_name: that.data.postData.lost_or_find_name ? that.data.postData.lost_or_find_name : '',
+          card_name: that.data.postData.card_name,
+          card_number: that.data.postData.card_number,
+          school_id: wx.getStorageSync('school_info').school_id
+        },
+        success(res) {
+          console.log('查询结果', res)
+          if (res.result.data[0]) {
+            wx.cloud.callFunction({
+              name: 'send_model_message',
+              data: {
+                formId: res.result.data[0].form_id,
+                // receive_obj: res.result.data[0],
+                findersData: that.data.postData,
+                toLoster: res.result.data[0].userInfo
+              },
+              success(res) {
+                console.log('模版消息', res)
+              },
+              fail(e) {
+                console.log('模版消息失败', e)
+              }
+            })
+          }
+        },
+        fail(res) {
+          console.log('推送失败', res)
         }
-      },
-      fail(res) {
-        console.log('推送失败', res)
-      }
-    })
+      })
+    }
+
   }
 })

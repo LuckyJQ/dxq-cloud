@@ -34,7 +34,7 @@ App({
 
     //初始化云开发能力
     wx.cloud.init({
-      env: 'test01-liipo',
+      env: 'test01-eakro',
       traceUser: true
     })
 
