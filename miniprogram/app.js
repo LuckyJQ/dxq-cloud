@@ -34,7 +34,7 @@ App({
 
     //初始化云开发能力
     wx.cloud.init({
-      env: 'test01-eakro',
+      env: 'dxq-i6tin',
       traceUser: true
     })
 

@@ -20,9 +20,9 @@
 			"outputPath": ""
 		}
 	},
-	"appid": "wx4dd207f3ea9cc30b",
+	"appid": "wxe6d064ae8ca7240a",
 	"projectname": "dxq-cloud",
-	"libVersion": "2.9.3",
+	"libVersion": "2.9.4",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

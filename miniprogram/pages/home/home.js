@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (wx.getStorageSync('user_info')){
+    if (wx.getStorageSync('school_info')){
       wx.switchTab({
         url: '/pages/index/index',
       })
@@ -87,5 +87,11 @@ Page({
 
     } else {//用户按了拒绝按钮
     }
+  },
+
+  getSchool(){
+    wx.navigateTo({
+      url: '/pages/index/school/school',
+    })
   }
 })

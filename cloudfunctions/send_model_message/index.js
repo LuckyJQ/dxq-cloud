@@ -15,7 +15,7 @@ async function sendTemplateMessage(event) {
   let item = event.findersData
   const sendResult = await cloud.openapi.templateMessage.send({
     touser: event.toLoster.openId,
-    templateId: 'OCAheKSXFHkG9ObrqZQt5-uCFfOaHqE3t3eepP6gDCc',
+    templateId: 'wk3HNitMbdhcxSPLDIqstF0gvZeME_cgDr4-qVxfS7w',
     formId: event.formId,
     page: 'pages/index/index',
     data: {

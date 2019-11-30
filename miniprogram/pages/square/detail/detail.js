@@ -155,21 +155,46 @@ Page({
       itemList: ['发送给好友', '生成分享图'],
       success(res) {
         console.log(res.tapIndex)
+        if (res.tapIndex === 0) {
+          wx.showModal({
+            title: '分享提醒',
+            content: '点击右上角按钮进行分享',
+            confirmColor: "#AE81F7",
+              confirmColor: "#AE81F7",
+              showCancel: false
+          })
+        }
         if (res.tapIndex === 1) {
-          that.setData({
-            show: true,
-            template: new Card().palette({
-              nickName: wx.getStorageSync('user_info').nickName,
-              school_name: wx.getStorageSync('school_info').school,
-              title: that.data.publish_detail.name ? that.data.publish_detail.name : that.data.publish_detail.card_name + '的卡',
-              description: that.data.publish_detail.description,
-              avatar: that.data.avatar ? that.data.avatar : ''
+          let userInfo = wx.getStorageSync('user_info')
+          if(!userInfo){
+            wx.showModal({
+              title: '授权提示',
+              content: '生成分享图需要您授权\r\n是否跳转授权？',
+              confirmColor: "#AE81F7",
+              success(res){
+                if(res.confirm){
+                  wx.switchTab({
+                    url: '/pages/my/my',
+                  })
+                }
+              }
             })
-          })
+          }else {
+            that.setData({
+              show: true,
+              template: new Card().palette({
+                nickName: wx.getStorageSync('user_info').nickName,
+                school_name: wx.getStorageSync('school_info').school,
+                title: that.data.publish_detail.name ? that.data.publish_detail.name : that.data.publish_detail.card_name + '的卡',
+                description: that.data.publish_detail.description,
+                avatar: that.data.avatar ? that.data.avatar : ''
+              })
+            })
 
-          wx.showLoading({
-            title: '努力生成中..',
-          })
+            wx.showLoading({
+              title: '努力生成中..',
+            })
+          }
         }
       },
       fail(res) {

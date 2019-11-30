@@ -23,10 +23,10 @@
       <text class="icon-roundcheck button-icon" style="color:rgba(76, 173, 248, 0.8)"></text>
       <text>我捡到了</text>
     </view>
-    <view class="button-item text-center" bindtap="toWeek" style="box-shadow: 0 0 20rpx rgba(251,189,8, 0.5);">
+    <!-- <view class="button-item text-center" bindtap="toWeek" style="box-shadow: 0 0 20rpx rgba(251,189,8, 0.5);">
       <text class="icon-calendar button-icon" style="color:rgba(251,189,8, 0.8)"></text>
       <text>周周报</text>
-    </view>
+    </view> -->
     <view class="button-item text-center" style="margin-bottom:0;box-shadow: 0 0 20rpx rgba(57,181,74, 0.5);">
       <text class="icon-notice button-icon" style="color:rgba(57,181,74, 0.8)"></text>
       <text>敬请期待</text>
