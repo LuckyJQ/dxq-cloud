@@ -1,0 +1,1 @@
+<button bindtap="getWords" style="margin-top:160px;">发送请求</button>

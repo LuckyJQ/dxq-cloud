@@ -1,3 +1,4 @@
+// 发送模板消息
 const cloud = require('wx-server-sdk')
 cloud.init()
 
@@ -6,11 +7,8 @@ exports.main = async (event, context) => {
   return sendTemplateMessage(event)
 }
 
-
 //小程序模版消息推送
 async function sendTemplateMessage(event) {
-
-  console.log('event', event)
 
   let item = event.findersData
   const sendResult = await cloud.openapi.templateMessage.send({

@@ -1,70 +1,10 @@
 const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     authorized: false,
     userInfo: ""
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    this.userAuthorized()
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   },
 
   //用户授权
@@ -106,28 +46,33 @@ Page({
       }
     })
   },
+
   getPublish() {
     wx.navigateTo({
       url: '/pages/my/my-publish/my-publish',
     })
   },
+
   getHelp() {
     wx.navigateTo({
       url: '/pages/my/help/help',
     })
   },
+
   getConcat() {
     wx.navigateTo({
       url: '/pages/my/concat/concat',
     })
   },
+
   getAdmin() {
     wx.navigateTo({
       url: '/pages/my/admin/admin',
     })
   },
+
+  // 跳转admin入口前需要做权限判断
   goAdminEntrance() {
-    // 跳转admin入口前需要做权限判断
     let openid = wx.getStorageSync('openid')
     let school_id = wx.getStorageSync('school_info').school_id
     wx.cloud.callFunction({
@@ -137,7 +82,6 @@ Page({
         school_id
       },
       success(res) {
-        console.log(res)
         let flag = res.result.admin_judge.data.length
         if (!flag) {
           wx.showModal({

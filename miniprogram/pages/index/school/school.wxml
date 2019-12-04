@@ -16,7 +16,7 @@
   </view>
 
   <view class="cu-list menu solid-bottom">
-    <view class="cu-item arrow" wx:for="{{schools}}">
+    <view class="cu-item arrow" wx:for="{{schools}}" wx:key>
       <view class='content' bindtap='selectSchool' data-school="{{item.school_name}}" data-school_id="{{item.school_id}}">
         <text>{{item.school_name}}</text>
       </view>

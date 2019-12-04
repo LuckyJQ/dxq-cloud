@@ -1,8 +1,6 @@
-// 云函数入口文件
+// 小程序获取发布列表
 const cloud = require('wx-server-sdk')
-
 cloud.init()
-
 const db = cloud.database()
 
 // 云函数入口函数

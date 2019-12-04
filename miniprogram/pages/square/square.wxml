@@ -20,91 +20,23 @@
   </view>
 
   <van-tabs color="#AE81F7" active="{{ active }}" bind:change="onTabChange">
-    <van-tab title="全部">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
+    <van-tab title="全部"></van-tab>
+    <van-tab title="卡证"></van-tab>
+    <van-tab title="电子"></van-tab>
+    <van-tab title="书本"></van-tab>
+    <van-tab title="生活"></van-tab>
+    <van-tab title="其他"></van-tab>
+
+    <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
+      <view class="tab-top">
+        <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
+        <text class="title">{{item.name ? item.name : item.card_name}}</text>
+        <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
       </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
-
-
-    <!-- <van-tab title="卡证">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
-      </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
-
-
-    <van-tab title="电子">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
-      </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
-
-
-
-    <van-tab title="书本">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
-      </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
-
-
-    <van-tab title="生活">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
-      </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
-
-
-
-    <van-tab title="其他">
-      <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
-        <view class="tab-top">
-          <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
-          <text class="title">{{item.name ? item.name : item.card_name}}</text>
-          <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(item.publish_time)}}</text>
-        </view>
-        <text class="margin-top-sm">{{item.description}}</text>
-        <text class="text-right text-sm text-gray">查看详情></text>
-      </view>
-      <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab> -->
-
+      <text class="margin-top-sm">{{item.description}}</text>
+      <text class="text-right text-sm text-gray">查看详情></text>
+    </view>
+    <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
 
   </van-tabs>
   <loading class="loading-center" wx:if="{{loading}}"></loading>

@@ -1,10 +1,7 @@
-/* components/loading/index.wxss */
-
 .spinner {
   width: 40rpx;
   height: 40rpx;
   position: relative;
-  /* margin: 100px auto; */
 }
 
 .double-bounce1, .double-bounce2 {

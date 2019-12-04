@@ -1,3 +1,4 @@
+<!-- 搜索页面 -->
 <wxs src="../../../utils/formatTime.wxs" module="time" />
 
 <view>
@@ -24,6 +25,4 @@
 
   <view class="mask" wx:if="{{loading}}"></view>
   <loading class="loading-center" wx:if="{{loading}}"></loading>
-
-
 </view>

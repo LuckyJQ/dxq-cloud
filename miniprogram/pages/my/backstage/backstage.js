@@ -1,9 +1,6 @@
 const app = getApp()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
@@ -16,10 +13,7 @@ Page({
     ]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       loading: true
     })
@@ -28,12 +22,12 @@ Page({
       school_id: options.school_id
     })
     wx.cloud.callFunction({
-      name:'get_publish_list_admin',
-      data:{
+      name: 'get_publish_list_admin',
+      data: {
         school_id: that.data.school_id,
         del_status: false
       },
-      success(res){
+      success(res) {
         console.log(res)
         let publish_list = res.result.publish_list.data
         that.setData({
@@ -41,59 +35,10 @@ Page({
           loading: false
         })
       },
-      fail(err){
+      fail(err) {
         console.log(err)
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   },
 
   // ListTouch触摸开始
@@ -126,8 +71,8 @@ Page({
     })
   },
 
-  setPublishTop(e){
-    console.log('top')
+  // 管理员置顶
+  setPublishTop(e) {
     let that = this
     let id = e.currentTarget.dataset.id
     wx.cloud.callFunction({
@@ -149,8 +94,8 @@ Page({
     })
   },
 
-  delPublish(e){
-    console.log(e)
+  // 管理员删帖
+  delPublish(e) {
     let id = e.currentTarget.dataset.id
     wx.showModal({
       title: '删除警告',
@@ -180,7 +125,8 @@ Page({
     })
   },
 
-  getInput(e){
+  // 管理员搜索
+  getInput(e) {
     this.setData({
       loading: true
     })
@@ -188,12 +134,12 @@ Page({
     let kw = e.detail.value
     wx.cloud.callFunction({
       name: 'get_search_admin',
-      data:{
+      data: {
         kw,
         school_id: that.data.school_id,
         del_status: false,
       },
-      success(res){
+      success(res) {
         console.log(res)
         let publish_list = res.result.search_result.data
         that.setData({
@@ -201,7 +147,7 @@ Page({
           loading: false
         })
       },
-      fail(err){
+      fail(err) {
         console.log(err)
       }
     })

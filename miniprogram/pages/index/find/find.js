@@ -10,8 +10,8 @@ import {
 const app = getApp()
 var type1_validate, type2_validate
 
+// 表单验证
 function initValidate() {
-  // 创建实例对象
   type1_validate = new WxValidate({
     card_name: {
       required: true,
@@ -28,22 +28,21 @@ function initValidate() {
       // tel: true
     }
   }, {
-      card_name: {
-        required: '请输入持卡人姓名!',
-        maxlength: '姓名不得超过10字!'
-      },
-      card_number: {
-        required: '请输入持卡人卡号'
-      },
-      lost_or_find_place: {
-        required: '请输入捡到的地点'
-      },
-      concat: {
-        required: '请输入联系方式',
-        // tel: '手机号格式错误'
-      }
-    })
-
+    card_name: {
+      required: '请输入持卡人姓名!',
+      maxlength: '姓名不得超过10字!'
+    },
+    card_number: {
+      required: '请输入持卡人卡号'
+    },
+    lost_or_find_place: {
+      required: '请输入捡到的地点'
+    },
+    concat: {
+      required: '请输入联系方式',
+      // tel: '手机号格式错误'
+    }
+  })
   type2_validate = new WxValidate({
     name: {
       required: true,
@@ -57,31 +56,26 @@ function initValidate() {
       // tel: true
     }
   }, {
-      name: {
-        required: '请输入物品名称!',
-        maxlength: '物品名称不得超过12字!'
-      },
-      lost_or_find_place: {
-        required: '请输入捡到的地点'
-      },
-      concat: {
-        required: '请输入联系方式',
-        // tel: '手机号格式错误'
-      }
-    })
+    name: {
+      required: '请输入物品名称!',
+      maxlength: '物品名称不得超过12字!'
+    },
+    lost_or_find_place: {
+      required: '请输入捡到的地点'
+    },
+    concat: {
+      required: '请输入联系方式',
+      // tel: '手机号格式错误'
+    }
+  })
 }
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     hideAdd: false,
     date: new Date().format("yyyy-MM-dd"),
-    // end_time: new Date().toLocaleString().split(' ')[0].split('/').join('-'),
     end_time: new Date().format("yyyy-MM-dd"),
     img: null,
     multiIndex: [0, 0],
@@ -101,79 +95,25 @@ Page({
       concat: null,
       card_number: null,
       card_name: null,
-      // user_id: null,
-      // school_id: null,
       publish_type: 0,
       isrich: false,
       istop: false
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  // 初始化表单，检查学校
+  onLoad: function(options) {
     app.checkIfSelectedSchool()
     initValidate()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  uploadImg: function () {
-    // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
+  // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
+  uploadImg: function() {
     let that = this
-
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
-      success: function (res) {
+      success: function(res) {
         console.log(res.tempFilePaths[0])
         let filePath = res.tempFilePaths[0]
         wx.getFileSystemManager().readFile({
@@ -184,6 +124,7 @@ Page({
             wx.showLoading({
               title: 'AI检测中',
             })
+
             // 拿到上传图片的base64编码
             let base64ImgData = res.data
             ocrRequest(base64ImgData, {
@@ -234,7 +175,7 @@ Page({
     })
   },
 
-  //上传图片
+  // 正式上传图片
   upload(fileName, img_url) {
     console.log('fileName', fileName)
     wx.showLoading({
@@ -262,6 +203,7 @@ Page({
     })
   },
 
+  // 删除发布的图片
   removeImg() {
     let that = this
     wx.showModal({
@@ -287,6 +229,7 @@ Page({
     })
   },
 
+  // 修改分类
   MultiColumnChange(e) {
     console.log('e.detail.value', e.detail.value)
     let data = {
@@ -310,14 +253,16 @@ Page({
     this.setData(data);
   },
 
+  // 修改日期
   DateChange(e) {
     this.setData({
       date: e.detail.value
     })
   },
 
+  // 提交表单
   formSubmit: debounce(
-    function (e) {
+    function(e) {
       let that = this
       let post_detail = e.detail.value
       console.log('post_detail', post_detail)
@@ -326,7 +271,6 @@ Page({
         second_type: post_detail.type_class[1],
       }
       Object.assign(post_detail, type_class)
-      // console.log(post_detail)
       this.setData({
         postData: Object.assign(this.data.postData, post_detail)
       })
@@ -360,7 +304,7 @@ Page({
           user_id: wx.getStorageSync('openid'),
           school_id: wx.getStorageSync('school_info').school_id
         },
-        success: function (res) {
+        success: function(res) {
           wx.hideLoading()
           that.sendMsg()
           wx.showToast({
@@ -384,9 +328,10 @@ Page({
   sendMsg() {
     let that = this
     console.log('this.postData', that.data.postData)
-    if (that.data.postData.first_type == 0){
+    // 卡证类
+    if (that.data.postData.first_type == 0) {
       wx.cloud.callFunction({
-        name: 'push0524',
+        name: 'send_message_check',
         data: {
           lost_or_find_name: that.data.postData.lost_or_find_name ? that.data.postData.lost_or_find_name : '',
           card_name: that.data.postData.card_name,
@@ -400,7 +345,6 @@ Page({
               name: 'send_model_message',
               data: {
                 formId: res.result.data[0].form_id,
-                // receive_obj: res.result.data[0],
                 findersData: that.data.postData,
                 toLoster: res.result.data[0].userInfo
               },
@@ -417,7 +361,79 @@ Page({
           console.log('推送失败', res)
         }
       })
-    }
+    } else{
+      // 非卡证类，分词查询，至少匹配标题，内容的两个单词，地址
+      let that = this
+      let url = 'https://www.mhyang.cn/ai/wordpos?word='
 
+      // 连接题目，内容，地名最为分词参数
+      let words = that.data.postData.name + that.data.postData.description + that.data.postData.lost_or_find_place
+      wx.request({
+        url: url + words,
+        success(res) {
+          console.log(res.data.data)
+          let data = res.data.data.mix_tokens
+          let kw_arr = []
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].pos_code == 1 || data[i].pos_code == 16) {
+              kw_arr.push(data[i].word)
+            }
+          }
+          kw_arr = Array.from(new Set(kw_arr))
+          console.log(kw_arr)
+          that.getPossible.bind(that)(kw_arr)
+        },
+        fail(err) {
+          console.log(err)
+        }
+      })
+    }
+  },
+
+
+  // 拿分词去查询数据库
+  getPossible(kw_arr) {
+    let that = this
+    wx.cloud.callFunction({
+      name: 'get_possible_lost_ai',
+      data: {
+        kw_arr,
+        school_id: wx.getStorageSync('school_info').school_id,
+        del_status: false
+      },
+      success(res) {
+        console.log(res)
+        if (res.result.code == 1000) {
+          // 发送模板消息
+          wx.cloud.callFunction({
+            name: 'send_model_message',
+            data: {
+              formId: res.result.form_id,
+              findersData: that.data.postData,
+              toLoster: res.result.userInfo
+            },
+            success(res) {
+              console.log('模版消息', res)
+            },
+            fail(e) {
+              console.log('模版消息失败', e)
+            }
+          })
+
+        } else {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        }
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })
   }
+
+
+
 })

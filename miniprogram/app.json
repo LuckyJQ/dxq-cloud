@@ -13,7 +13,8 @@
     "pages/my/admin/admin",
     "pages/index/school/school",
     "pages/square/search/search",
-    "pages/my/backstage/backstage"
+    "pages/my/backstage/backstage",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

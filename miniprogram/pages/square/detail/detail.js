@@ -1,11 +1,7 @@
 import Card from './palette';
-
-
 const app = getApp()
 Page({
-
   imagePath: '',
-
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
@@ -18,15 +14,12 @@ Page({
       ['电子', '书本', '生活', '其他']
     ],
 
-
     template: {},
     img: '',
     avatar: ''
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  // 进入详情页时候下载发布对应的图片
   onLoad: function(options) {
     let that = this
     wx.downloadFile({
@@ -38,10 +31,11 @@ Page({
       }
     })
 
-
     this.setData({
       loading: true
     })
+
+    // 获取详情
     wx.cloud.callFunction({
       name: 'get_publish_detail',
       data: {
@@ -67,55 +61,7 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-
+  // canvas绘制分享图
   onImgOK(e) {
     this.imagePath = e.detail.path;
     this.setData({
@@ -125,12 +71,14 @@ Page({
     console.log(this.imagePath);
   },
 
+  // 保存canvas绘制
   saveImage() {
     wx.saveImageToPhotosAlbum({
       filePath: this.imagePath
     })
   },
 
+  // 下载生成用户分享图的头像
   downloadImg(imgUrl) {
     let that = this
     wx.cloud.downloadFile({
@@ -149,37 +97,39 @@ Page({
       }
     })
   },
+
+  // 分享按钮，转发或者生成朋友圈分享图
   onShare() {
     let that = this
     wx.showActionSheet({
       itemList: ['发送给好友', '生成分享图'],
       success(res) {
-        console.log(res.tapIndex)
         if (res.tapIndex === 0) {
           wx.showModal({
             title: '分享提醒',
             content: '点击右上角按钮进行分享',
             confirmColor: "#AE81F7",
-              confirmColor: "#AE81F7",
-              showCancel: false
+            confirmColor: "#AE81F7",
+            showCancel: false
           })
         }
         if (res.tapIndex === 1) {
+          // 生成分享图需要用户的头像，昵称，这个需要用户授权，提示跳转授权
           let userInfo = wx.getStorageSync('user_info')
-          if(!userInfo){
+          if (!userInfo) {
             wx.showModal({
               title: '授权提示',
               content: '生成分享图需要您授权\r\n是否跳转授权？',
               confirmColor: "#AE81F7",
-              success(res){
-                if(res.confirm){
+              success(res) {
+                if (res.confirm) {
                   wx.switchTab({
                     url: '/pages/my/my',
                   })
                 }
               }
             })
-          }else {
+          } else {
             that.setData({
               show: true,
               template: new Card().palette({
@@ -210,6 +160,7 @@ Page({
     });
   },
 
+  // 复制联系方式到剪贴板
   copyPhone() {
     wx.setClipboardData({
       data: this.data.publish_detail.concat,

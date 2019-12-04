@@ -2,9 +2,10 @@ const app = getApp()
 import WxValidate from '../../../utils/validate.js'
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
 
+// 表单验证对象
 var admin_validate;
+
 function initValidate() {
-  // 创建实例对象
   admin_validate = new WxValidate({
     wechat: {
       required: true
@@ -14,18 +15,15 @@ function initValidate() {
       tel: true
     }
   }, {
-      wechat: {
-        required: '请输入微信号!'
-      },
-      phone: {
-        required: '请输入电话号码!',
-        tel: '手机号格式错误!'
-      }
-    })
+    wechat: {
+      required: '请输入微信号!'
+    },
+    phone: {
+      required: '请输入电话号码!',
+      tel: '手机号格式错误!'
+    }
+  })
 }
-
-
-
 
 Page({
   data: {
@@ -39,6 +37,7 @@ Page({
     img: null,
     hideAdd: false
   },
+
   onLoad: function(options) {
     initValidate()
     let openid = wx.getStorageSync('openid')
@@ -49,62 +48,13 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-
-  uploadImg: function () {
-    // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
+  // 上传学生证
+  uploadImg() {
     let that = this
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
-      success: function (res) {
+      success: function(res) {
         console.log(res.tempFilePaths[0])
         let filePath = res.tempFilePaths[0]
         let index = filePath.lastIndexOf("/");
@@ -116,7 +66,7 @@ Page({
       }
     })
   },
-  
+
   upload(fileName, img_url) {
     console.log('fileName', fileName)
     wx.showLoading({
@@ -165,8 +115,6 @@ Page({
 
   formSubmit(e) {
     let data = e.detail.value
-    console.log(data)
-
     if (!admin_validate.checkForm(data)) {
       const error = admin_validate.errorList[0]
       Toast(error.msg);
@@ -177,7 +125,6 @@ Page({
       Toast(error.msg);
       return
     }
-
     this.setData({
       phone: data.phone,
       wechat: data.wechat
@@ -190,8 +137,6 @@ Page({
       img: this.data.img,
       ...this.data.school_info
     }
-
-    console.log('postData', postData)
     wx.cloud.callFunction({
       name: 'admin_request',
       data: postData,

@@ -10,8 +10,8 @@ import {
 const app = getApp()
 var type1_validate, type2_validate
 
+// 表单验证
 function initValidate() {
-  // 创建实例对象
   type1_validate = new WxValidate({
     card_name: {
       required: true,
@@ -44,7 +44,6 @@ function initValidate() {
     }
   })
 
-
   type2_validate = new WxValidate({
     name: {
       required: true,
@@ -72,19 +71,13 @@ function initValidate() {
   })
 }
 
-
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     hideAdd: false,
     modalStatus: false,
     date: new Date().format("yyyy-MM-dd"),
-    // end_time: new Date().toLocaleString().split(' ')[0].split('/').join('-'),
     end_time: new Date().format("yyyy-MM-dd"),
     img: null,
     multiIndex: [0, 0],
@@ -108,8 +101,6 @@ Page({
       concat: null,
       card_number: null,
       card_name: null,
-      // user_id: null,
-      // school_id: null,
       publish_type: 1,
       isrich: false,
       istop: false
@@ -117,24 +108,29 @@ Page({
     possibleData: []
   },
 
+  // 生成表单验证对象，检查是否选择学校
   onLoad: function(options) {
     app.checkIfSelectedSchool()
     initValidate()
   },
 
+  // 检查卡是不是已经存在了，卡号和姓名必须都匹配上
   checkIfCardExist(data) {
+    wx.showLoading({
+      title: '检测匹配物品',
+    })
     let that = this
     console.log(data)
     wx.cloud.callFunction({
       name: 'check_if_card_exist',
       data: {
-        nameKw: data.nameKw,
-        numKw: data.numKw,
+        ...data,
         school_id: wx.getStorageSync('school_info').school_id
       },
       success: res => {
         console.log('卡证类检测res', res)
         if (res.result.check_result.data.length) {
+          wx.hideLoading()
           that.setData({
             modalStatus: true,
             possibleData: res.result.check_result.data
@@ -153,14 +149,13 @@ Page({
     })
   },
 
+  // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
   uploadImg: function() {
-    // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
     let that = this
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
       success: function(res) {
-        console.log(res.tempFilePaths[0])
         let filePath = res.tempFilePaths[0]
         wx.getFileSystemManager().readFile({
           filePath: filePath,
@@ -198,7 +193,7 @@ Page({
 
                     }
                   })
-                }else{
+                } else {
                   wx.hideLoading()
                   let index = filePath.lastIndexOf("/");
                   let fileName = filePath.substr(index + 1)
@@ -225,9 +220,8 @@ Page({
     })
   },
 
-  //上传图片
+  // 正式上传图片
   upload(fileName, img_url) {
-    console.log('fileName', fileName)
     wx.showLoading({
       title: '图片上传中',
     })
@@ -253,6 +247,7 @@ Page({
     })
   },
 
+  // 删除已上传图片
   removeImg() {
     let that = this
     wx.showModal({
@@ -277,6 +272,8 @@ Page({
       multiIndex: e.detail.value
     })
   },
+
+  // 切换分类
   MultiColumnChange(e) {
     console.log('e.detail.value', e.detail.value)
     let data = {
@@ -299,12 +296,15 @@ Page({
     }
     this.setData(data);
   },
+
+  // 更改日期
   DateChange(e) {
     this.setData({
       date: e.detail.value
     })
   },
 
+  // 提交表单，ai分词内容并筛选最佳匹配，按钮要防抖一下
   formSubmit: debounce(
     function(e) {
       let that = this
@@ -315,11 +315,9 @@ Page({
         second_type: post_detail.type_class[1],
       }
       Object.assign(post_detail, type_class)
-      // console.log(post_detail)
       this.setData({
         postData: Object.assign(this.data.postData, post_detail)
       })
-
 
       if (post_detail.first_type === 0) {
         if (!type1_validate.checkForm(post_detail)) {
@@ -366,7 +364,7 @@ Page({
                   numKw: that.data.postData.card_number,
                 })
               } else {
-                // 非卡证类，拿到详情描述请求AI接口分词，结合物品名称进行数据库查询
+                // 非卡证类，拿到详情描述请求AI接口分词，结合物品名称和详情进行数据库查询
                 let words = that.data.postData.name + '，' + that.data.postData.description
                 that.divideWords(words)
               }
@@ -377,22 +375,8 @@ Page({
       })
     }, 1000),
 
-
-  closeModal() {
-    this.setData({
-      modalStatus: false
-    })
-  },
-
-  goToPossible(e) {
-    let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/square/detail/detail?id=' + id,
-    })
-  },
-
-
   // AI分词
+  // 分词接口是GBK的，很麻烦，会乱码。主要发过去的也要gbk，最后咩办法了，只能用自己Java后台转了一下
   divideWords(words) {
     let that = this
     let url = 'https://www.mhyang.cn/ai/wordpos?word=';
@@ -419,6 +403,9 @@ Page({
 
   // 拿分词去查询数据库
   getPossible(kw_arr) {
+    wx.showLoading({
+      title: '检测匹配物品',
+    })
     let that = this
     wx.cloud.callFunction({
       name: 'get_possible_ai',
@@ -430,6 +417,7 @@ Page({
       success(res) {
         console.log(res)
         if (res.result.search_result.length) {
+          wx.hideLoading()
           that.setData({
             modalStatus: true,
             possibleData: res.result.search_result
@@ -446,5 +434,21 @@ Page({
         console.log(err)
       }
     })
+  },
+
+  // 跳转到可能是我丢了的失物
+  goToPossible(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/square/detail/detail?id=' + id,
+    })
+  },
+
+  // 可能的丢失物品modal
+  closeModal() {
+    this.setData({
+      modalStatus: false
+    })
   }
+
 })

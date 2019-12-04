@@ -1,3 +1,4 @@
+// 申请区域管理员
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()

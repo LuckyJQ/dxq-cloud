@@ -11,7 +11,7 @@
     <view class="logo"></view>
     <text class="slogan">好用的高校失物招领平台</text>
     <view class="about">
-      <text>版本: 1.0.0</text>
+      <text>版本: 1.0.1</text>
       <text bindtap="copyText">联系我们：dxq_2019@outlook.com</text>
       <text>开发人员：番茄，歪总，面包，可乐</text>
     </view>

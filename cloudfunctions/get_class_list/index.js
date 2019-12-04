@@ -1,8 +1,6 @@
-// 云函数入口文件
+// 获取分类，目前在小程序写死了，以后用
 const cloud = require('wx-server-sdk')
-
 cloud.init()
-
 const db = cloud.database()
 
 // 云函数入口函数

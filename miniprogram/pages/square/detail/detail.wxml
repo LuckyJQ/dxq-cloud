@@ -1,6 +1,5 @@
+<!-- 详情页面 -->
 <wxs src="../../../utils/formatTime.wxs" module="time" />
-<!-- <wxs src="../../../utils/formatCardNum.wxs" module="card" /> -->
-
 
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
@@ -15,13 +14,9 @@
     <view class="tab-top">
       <view class='cu-tag bg-theme radius sm margin-right-xs'>{{publish_detail.publish_type===0?'捡到':'丢失'}}</view>
       <view class='cu-tag bg-theme radius sm'>{{typeArray[publish_detail.first_type][publish_detail.second_type]}}</view>
-
       <text class="title">{{publish_detail.name ? publish_detail.name : publish_detail.card_name}}</text>
       <text class="text-right" style="flex:1;font-size:12px;">{{time.formatTime(publish_detail.publish_time)}}</text>
     </view>
-
-
-
 
     <text class="content">{{publish_detail.description}}</text>
     <image src="{{imgUrl}}" mode="widthFix"></image>
@@ -34,6 +29,7 @@
     </view>
 
     <view class="tab-bottom margin-top-sm" wx:if="{{publish_detail.publish_type===1}}">
+      <text wx:if="{{publish_detail.card_number}}">卡号：{{time.formatCardNum(publish_detail.card_number)}}</text>
       <text>感谢金：{{publish_detail.thanks ? publish_detail.thanks: '未设置' }}</text>
       <text>丢失时间：{{publish_detail.lost_or_find_time}}</text>
       <text>丢失地点：{{publish_detail.lost_or_find_place}}</text>
@@ -45,10 +41,8 @@
     </view>
   </view>
 
-
+  <!-- canvas，弹出层等 -->
   <painter class="hidden" customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
-
-
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
     <view class="share-box">
       <view class="top solid-bottom">
@@ -58,11 +52,7 @@
       <button class='poster-button cu-btn round bg-theme' bind:tap='saveImage'>保存到本地</button>
     </view>
   </van-popup>
-
-
   <view class="mask" wx:if="{{loading}}"></view>
-
-
   <loading class="loading-center" wx:if="{{loading}}"></loading>
 
 </view>

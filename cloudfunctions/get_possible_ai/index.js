@@ -1,4 +1,4 @@
-// 云函数入口文件
+// 丢失者发布后，Ai分词寻找最匹配失物
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()

@@ -1,3 +1,4 @@
+// canvas实列
 export default class ImageExample {
   palette(obj) {
     return ({

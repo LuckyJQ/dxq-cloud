@@ -32,21 +32,22 @@ function formatTime(dateTimeStamp) {
   } else if (minC >= 1) {
     result = "" + parseInt(minC) + "分钟前"
   } else {
-    result = "刚刚";
+    result = "刚刚"
   }
-  return result;
-};
+  return result
+}
 
 
-function formatCardNum(str) {
-  if (str.length > 4) {
-    return str.slice(0, str.length - 4).concat('****')
+function formatCardNum(card_number) {
+  if (card_number.length > 4) {
+    var card_number = card_number.slice(0, card_number.length - 4).concat('****')
+    return card_number
   } else {
-    return str
+    return card_number
   }
 }
 
 module.exports = {
   formatTime: formatTime,
   formatCardNum: formatCardNum
-};
+}

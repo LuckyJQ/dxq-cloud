@@ -2,7 +2,6 @@
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" style="height:{{CustomBar+40}}px;padding-top:{{StatusBar}}px;">
       <view wx:if="{{authorized}}" class="cu-avatar xl round margin-left margin-right" style="background-image:url({{userInfo.avatarUrl}});"></view>
-
       <img-button wx:if="{{!authorized}}" open-type="getUserInfo" bind:getuserinfo="onGetUserInfo">
         <view slot="img" class="cu-avatar xl round margin-left margin-right" style="background-image:url(/images/login.png);">
         </view>
@@ -14,11 +13,6 @@
 
 
   <view class="cu-list menu" style="margin-top:120rpx;">
-    <!-- <view class="cu-item arrow">
-      <view class='content' bindtap='getInfo'>
-        <text>我的资料</text>
-      </view>
-    </view> -->
     <view class="cu-item arrow">
       <view class='content' bindtap='getPublish'>
         <text>我的发布</text>
@@ -27,11 +21,6 @@
   </view>
 
   <view class="cu-list menu  margin-top">
-    <!-- <view class="cu-item arrow">
-      <view class='content' bindtap='getSystemInfo'>
-        <text>系统消息</text>
-      </view>
-    </view> -->
     <view class="cu-item arrow">
       <view class='content' bindtap='getHelp'>
         <text>使用帮助</text>

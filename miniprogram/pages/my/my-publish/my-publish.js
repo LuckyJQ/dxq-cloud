@@ -1,9 +1,6 @@
 const app = getApp()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
@@ -15,67 +12,14 @@ Page({
     ]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let that = this
     this.setData({
       loading: true
     })
-
     let user_id = wx.getStorageSync('openid')
     let school_id = wx.getStorageSync('school_info').school_id
     this._getPublish(user_id, school_id)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   },
 
   // ListTouch触摸开始
@@ -108,14 +52,14 @@ Page({
     })
   },
 
-  getTop(e){
+  getTop(e) {
     console.log('置顶')
     console.log(e.target.dataset.id)
   },
 
-  getDetail(e){
+  getDetail(e) {
     console.log('this.data.modalName', this.data.modalName)
-    if(!this.data.modalName){
+    if (!this.data.modalName) {
       let id = e.currentTarget.dataset.id
       wx.navigateTo({
         url: '/pages/square/detail/detail?id=' + id,
@@ -123,7 +67,7 @@ Page({
     }
   },
 
-  getDel(e){
+  getDel(e) {
     let that = this
     let id = e.target.dataset.id
     wx.showModal({
@@ -140,7 +84,8 @@ Page({
     })
   },
 
-  _getPublish(user_id, school_id){
+  // 获取发布
+  _getPublish(user_id, school_id) {
     let that = this
     wx.cloud.callFunction({
       name: 'get_my_publish',
@@ -161,18 +106,19 @@ Page({
     })
   },
 
-  _delPublish(id){
+  // 删除发布
+  _delPublish(id) {
     let that = this
     wx.cloud.callFunction({
       name: 'del_my_publish',
       data: {
         id: id
       },
-      success: (res)=>{
-        
+      success: (res) => {
+
         let data = that.data.my_publish
-        data.forEach((item,index)=>{
-          if(item._id === id){
+        data.forEach((item, index) => {
+          if (item._id === id) {
             data.splice(index, 1)
             that.setData({
               my_publish: data
@@ -183,7 +129,7 @@ Page({
           title: '删除成功'
         })
       },
-      fail: (err)=>{
+      fail: (err) => {
         console.log(err)
       }
     })

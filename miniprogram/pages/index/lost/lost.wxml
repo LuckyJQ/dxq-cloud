@@ -1,13 +1,14 @@
+<!-- 我丢了页面 -->
 <view>
-  <form bindsubmit="formSubmit" report-submit='true'>
-    <view class="cu-custom" style="height:{{CustomBar}}px;">
-      <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-        <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-          <text class='icon-back'></text> 我丢了
-        </navigator>
-      </view>
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 我丢了
+      </navigator>
     </view>
+  </view>
 
+  <form bindsubmit="formSubmit" report-submit='true'>
     <view class="cu-form-group solid-bottom">
       <view class='title'>物品分类</view>
       <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}" range="{{multiArray}}" name="type_class">
@@ -17,6 +18,7 @@
       </picker>
     </view>
 
+    <!-- 卡证类 -->
     <view wx:if="{{multiIndex[0]===0}}">
       <view class="cu-form-group">
         <view class='title'>持卡人姓名</view>
@@ -28,10 +30,8 @@
       </view>
       <view class="cu-form-group top">
         <view class='title'>详情描述</view>
-        <textarea placeholder="用于补充丢失的物品的细节" maxlength="-1"  name="description"></textarea>
+        <textarea placeholder="用于补充丢失的物品的细节" maxlength="-1" name="description"></textarea>
       </view>
-
-
       <view class="cu-form-group margin-top">
         <view class="flex-sub padding-tb">
           <view class="solids upload-img-button" bindtap="uploadImg" wx:if="{{!hideAdd}}">
@@ -51,7 +51,6 @@
           <text class="padding-lr">贵重物品经管理员审核通过后将在广场中置顶显示，请勿滥用</text>
         </view>
       </view>
-
       <view class="cu-form-group margin-top-sm">
         <view class='title'>日期选择</view>
         <picker mode="date" value="{{date}}" start="2015-09-01" end="{{end_time}}" bindchange="DateChange" name="lost_or_find_time">
@@ -74,8 +73,7 @@
       </view>
     </view>
 
-
-
+    <!-- 非卡证类 -->
     <view wx:if="{{multiIndex[0]===1}}">
       <view class="cu-form-group">
         <view class='title'>物品名称</view>
@@ -85,7 +83,6 @@
         <view class='title'>详情描述</view>
         <textarea placeholder="用于补充捡到物品的细节" maxlength="-1" name="description"></textarea>
       </view>
-
       <view class="cu-form-group margin-top">
         <view class="flex-sub padding-tb">
           <view class="solids upload-img-button" bindtap="uploadImg" wx:if="{{!hideAdd}}">
@@ -105,7 +102,6 @@
           <text class="padding-lr">贵重物品经管理员审核通过后将在广场中置顶显示，请勿滥用</text>
         </view>
       </view>
-
       <view class="cu-form-group margin-top-sm">
         <view class='title'>日期选择</view>
         <picker mode="date" name="lost_or_find_time" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
@@ -138,6 +134,7 @@
     <van-toast id="van-toast" />
   </form>
 
+  <!-- 相似推荐modal -->
   <view class="cu-modal {{modalStatus? 'show' :''}} res-modal">
     <view class="cu-dialog">
       <view class="cu-bar bg-white justify-end">
@@ -161,6 +158,5 @@
       </view>
     </view>
   </view>
-
 
 </view>
