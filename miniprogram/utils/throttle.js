@@ -1,3 +1,4 @@
+// 节流函数
 function throttle(fn, wait) {
   var timer
   return function (...args) {

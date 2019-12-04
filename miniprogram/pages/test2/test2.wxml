@@ -1,3 +1,0 @@
-<view>
-  <button bindtap="divideWords" style="margin-top:200px">提交</button>
-</view>

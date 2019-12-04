@@ -1,19 +1,17 @@
+// 防抖函数
 function debounce(func, wait) {
-
   // 定义唯一的timeout
-  var timeout;
-
+  var timeout
   return function () {
-    var context = this;
-    var args = arguments;
+    var context = this
+    var args = arguments
 
     clearTimeout(timeout)
     timeout = setTimeout(function () {
       func.apply(context, args)
-    }, wait);
+    }, wait)
   }
 }
-
 
 module.exports = {
   debounce: debounce

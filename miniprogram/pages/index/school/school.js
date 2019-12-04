@@ -7,6 +7,8 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
+
+    // 展示三个学校把先，按道理是要发个请求的
     schools: [{
       school_belong: "教育部",
       school_city: "西安市",
@@ -32,24 +34,18 @@ Page({
     loading: false
   },
 
-  onLoad: function(options) {
-
-  },
-
+  // 选择学校
   selectSchool(e) {
     let school_info = {
       school: e.currentTarget.dataset.school,
       school_id: e.currentTarget.dataset.school_id
     }
-
     wx.setStorageSync('school_info', school_info)
     wx.showToast({
       title: '选择成功',
       duration: 1000,
       success: function() {
         setTimeout(() => {
-          // wx.navigateBack({})
-
           wx.switchTab({
             url: '/pages/index/index',
           })
@@ -59,6 +55,7 @@ Page({
     })
   },
 
+  // 搜索截流，设置300ms
   onSearch: throttle(
     function(e) {
       const that = this

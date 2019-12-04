@@ -1,9 +1,5 @@
 const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     active: 0,
     loading: false,
@@ -18,72 +14,15 @@ Page({
     CustomBar: app.globalData.CustomBar
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  // 初始化检测学校
   onLoad: function(options) {
+    app.checkIfSelectedSchool()
     this._getPublishList(0)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    app.checkIfSelectedSchool()
-
-    // 开启onShow时候强制刷新
-    // this._getPublishList(0)
-    // this.setData({
-    //   isFind: true,
-    //   active: 0
-    // })
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-
+  // 搜索接口
   onSearch(e) {
     app.checkIfSelectedSchool()
-
     if (wx.getStorageSync('school_info')) {
       let kw = e.detail.value
       wx.navigateTo({
@@ -92,6 +31,7 @@ Page({
     }
   },
 
+  // 获取某个大类和小类下的发布
   _getPublishList(publish_type, first_type, second_type) {
     let that = this
     let school_id = wx.getStorageSync('school_info').school_id
@@ -120,6 +60,7 @@ Page({
     })
   },
 
+  // 切换捡到大类
   changeTypeFind(e) {
     this.setData({
       publish_list: []
@@ -134,6 +75,8 @@ Page({
       this._getPublishList(publish_type)
     }
   },
+
+  // 切换丢失大类
   changeTypeLost(e) {
     if(this.data.isFind){
       let publish_type = parseInt(e.currentTarget.dataset.publish_type)
@@ -146,6 +89,7 @@ Page({
     }
   },
 
+  // 切换小类tab
   onTabChange(e) {
     console.log('index', e.detail.index)
     let index = e.detail.index
@@ -171,33 +115,9 @@ Page({
     }
   },
 
-  onAdd(e) {
-    app.checkIfSelectedSchool()
-    if (wx.getStorageSync('school_info')) {
-      let index = e.detail
-      switch (index) {
-        case '1':
-          wx.navigateTo({
-            url: '/pages/square/help/help',
-          })
-          break;
-        case '2':
-          wx.navigateTo({
-            url: '/pages/square/lost/lost',
-          })
-          break;
-        case '3':
-          wx.navigateTo({
-            url: '/pages/square/find/find',
-          })
-          break;
-      }
-    }
-  },
+  // 跳转详情页
   getDetail(e) {
-
     let id = e.currentTarget.dataset.id
-
     wx.navigateTo({
       url: '/pages/square/detail/detail?id=' + id,
     })

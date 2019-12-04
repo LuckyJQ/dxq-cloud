@@ -31,6 +31,27 @@
   font-size: 36rpx;
 }
 
+.button-lost {
+  box-shadow: 0 0 20rpx rgba(234, 50, 35, 0.5);
+}
 
+.button-find {
+  box-shadow: 0 0 20rpx rgba(76, 173, 248, 0.5);
+}
 
+.button-wait {
+  margin-bottom: 0;
+  box-shadow: 0 0 20rpx rgba(57, 181, 74, 0.5);
+}
 
+.lost-icon-color {
+  color: rgba(234, 50, 35, 0.8);
+}
+
+.find-icon-color {
+  color: rgba(76, 173, 248, 0.8);
+}
+
+.wait-icon-color {
+  color: rgba(57, 181, 74, 0.8);
+}

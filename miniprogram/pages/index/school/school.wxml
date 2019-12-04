@@ -1,3 +1,4 @@
+<!-- 选择学校页面 -->
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
@@ -23,7 +24,6 @@
   </view>
 
   <image src="/images/logo_gray.png" class="bottom-logo" mode="widthFix"></image>
-
   <loading class="loading-center" wx:if="{{loading}}"></loading>
 
 </view>

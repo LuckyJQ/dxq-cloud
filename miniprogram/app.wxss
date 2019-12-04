@@ -5,7 +5,6 @@ page {
   background-color: #fff;
   color: #333;
   text-align: justify;
-  /* font-family: "PingFangSC-Thin"; */
 }
 
 .bg-theme {
@@ -21,7 +20,6 @@ page {
     max-width: 100%;
     height: 100%;
 }
-
 
 .no-data {
   width: 320rpx;

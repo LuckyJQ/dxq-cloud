@@ -1,3 +1,4 @@
+<!-- 首页 -->
 <view>
   <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed bg-theme" bindtap="selectSchool" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
@@ -15,20 +16,16 @@
   <van-notice-bar left-icon="http://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png" text="{{notice}}" bind:click="getNotice" />
 
   <view class="buttons">
-    <view class="button-item text-center" bindtap="toLost" style="box-shadow: 0 0 20rpx rgba(234, 50, 35, 0.5);">
-      <text class="icon-roundclose button-icon" style="color:rgba(234, 50, 35, 0.8);"></text>
+    <view class="button-item text-center button-lost" bindtap="toLost">
+      <text class="icon-roundclose button-icon lost-icon-color"></text>
       <text>我丢了</text>
     </view>
-    <view class="button-item text-center" bindtap="toFind" style="box-shadow: 0 0 20rpx rgba(76, 173, 248, 0.5);">
-      <text class="icon-roundcheck button-icon" style="color:rgba(76, 173, 248, 0.8)"></text>
+    <view class="button-item text-center button-find" bindtap="toFind">
+      <text class="icon-roundcheck button-icon find-icon-color"></text>
       <text>我捡到了</text>
     </view>
-    <!-- <view class="button-item text-center" bindtap="toWeek" style="box-shadow: 0 0 20rpx rgba(251,189,8, 0.5);">
-      <text class="icon-calendar button-icon" style="color:rgba(251,189,8, 0.8)"></text>
-      <text>周周报</text>
-    </view> -->
-    <view class="button-item text-center" style="margin-bottom:0;box-shadow: 0 0 20rpx rgba(57,181,74, 0.5);">
-      <text class="icon-notice button-icon" style="color:rgba(57,181,74, 0.8)"></text>
+    <view class="button-item text-center button-wait">
+      <text class="icon-notice button-icon wait-icon-color"></text>
       <text>敬请期待</text>
     </view>
   </view>

@@ -2,8 +2,8 @@
   "pages": [
     "pages/home/home",
     "pages/index/index",
-    "pages/square/find/find",
-    "pages/square/lost/lost",
+    "pages/index/find/find",
+    "pages/index/lost/lost",
     "pages/square/square",
     "pages/square/detail/detail",
     "pages/my/my",
@@ -13,9 +13,7 @@
     "pages/my/admin/admin",
     "pages/index/school/school",
     "pages/square/search/search",
-    "pages/index/week/week",
-    "pages/my/backstage/backstage",
-    "pages/test2/test2"
+    "pages/my/backstage/backstage"
   ],
   "window": {
     "backgroundTextStyle": "light",

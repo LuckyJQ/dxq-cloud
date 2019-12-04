@@ -1,45 +1,24 @@
 App({
-  checkIfSelectedSchool() {
-    let school_info = wx.getStorageSync('school_info')
-    if (!school_info) {
-      wx.showModal({
-        title: '警告',
-        content: '请先选择你的学校',
-        confirmColor:'#AE81F7',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/index/school/school'
-            })
-          } else if (res.cancel) {
-            console.log('取消')
-          }
-        }
-      })
-    }
-    return
-  },
-
   onLaunch: function() {
+
+    // 获取设备尺寸，生成自适应顶部导航栏
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
         let custom = wx.getMenuButtonBoundingClientRect();
         this.globalData.Custom = custom;
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
-
-        console.log(this.globalData.StatusBar, this.globalData.CustomBar)
       }
     })
 
-    //初始化云开发能力
+    // 初始化云开发能力
     wx.cloud.init({
       env: 'dxq-i6tin',
       traceUser: true
     })
 
+    // 获取openid并写入缓存
     wx.cloud.callFunction({
-      // 云函数名称
       name: 'login',
       success: function(res) {
         let openid = wx.getStorageSync('openid')
@@ -73,82 +52,28 @@ App({
     }
   },
   globalData: {
-    _publishModal: false,
-    ColorList: [{
-        title: '嫣红',
-        name: 'red',
-        color: '#e54d42'
-      },
-      {
-        title: '桔橙',
-        name: 'orange',
-        color: '#f37b1d'
-      },
-      {
-        title: '明黄',
-        name: 'yellow',
-        color: '#fbbd08'
-      },
-      {
-        title: '橄榄',
-        name: 'olive',
-        color: '#8dc63f'
-      },
-      {
-        title: '森绿',
-        name: 'green',
-        color: '#39b54a'
-      },
-      {
-        title: '天青',
-        name: 'cyan',
-        color: '#1cbbb4'
-      },
-      {
-        title: '海蓝',
-        name: 'blue',
-        color: '#0081ff'
-      },
-      {
-        title: '姹紫',
-        name: 'purple',
-        color: '#6739b6'
-      },
-      {
-        title: '木槿',
-        name: 'mauve',
-        color: '#9c26b0'
-      },
-      {
-        title: '桃粉',
-        name: 'pink',
-        color: '#e03997'
-      },
-      {
-        title: '棕褐',
-        name: 'brown',
-        color: '#a5673f'
-      },
-      {
-        title: '玄灰',
-        name: 'grey',
-        color: '#8799a3'
-      },
-      {
-        title: '草灰',
-        name: 'gray',
-        color: '#aaaaaa'
-      },
-      {
-        title: '墨黑',
-        name: 'black',
-        color: '#333333'
-      },
-      {
-        title: '雅白',
-        name: 'white',
-        color: '#ffffff'
-      },
-    ]
+    _publishModal: false
+  },
+
+  // 进入后检测学校是否已经选择
+  checkIfSelectedSchool() {
+    let school_info = wx.getStorageSync('school_info')
+    if (!school_info) {
+      wx.showModal({
+        title: '警告',
+        content: '请先选择你的学校',
+        confirmColor: '#AE81F7',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/index/school/school'
+            })
+          } else if (res.cancel) {
+            console.log('取消')
+          }
+        }
+      })
+    }
+    return
   }
 })

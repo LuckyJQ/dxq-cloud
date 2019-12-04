@@ -1,3 +1,4 @@
+<!-- 广场页面 -->
 <wxs src="../../utils/formatTime.wxs" module="time" />
 
 <view>
@@ -33,7 +34,7 @@
     </van-tab>
 
 
-    <van-tab title="卡证">
+    <!-- <van-tab title="卡证">
       <view class="tab-container solid-bottom" wx:for="{{publish_list}}" bindtap="getDetail" data-id="{{item._id}}">
         <view class="tab-top">
           <view class='cu-tag bg-theme radius sm'>{{typeArray[item.first_type][item.second_type]}}</view>
@@ -102,7 +103,7 @@
         <text class="text-right text-sm text-gray">查看详情></text>
       </view>
       <view class="no-data no-data-center" wx:if="{{!publish_list.length}}"></view>
-    </van-tab>
+    </van-tab> -->
 
 
   </van-tabs>

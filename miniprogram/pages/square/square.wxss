@@ -62,23 +62,6 @@
   text-overflow: ellipsis;
 }
 
-/* .tab-mid {
-  display: flex;
-}
-
-.tab-mid image {
-  width: 200rpx;
-  height: 200rpx;
-  margin-right: 20rpx;
-}
-
-.test {
-  display: flex;
-  direction: colum;
-  flex-wrap: wrap;
-  align-items: flex-end;
-} */
-
 .add-button {
   width: 120rpx;
   height: 120rpx;

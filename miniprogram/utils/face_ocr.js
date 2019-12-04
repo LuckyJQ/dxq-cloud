@@ -1,9 +1,8 @@
-let md5 = require('./md5.js')
-let app_id = '2124093159'
-let app_key = 'xlKswRKKpUsBVdZs'
-// let url = 'https://api.ai.qq.com/fcgi-bin/ocr/ocr_generalocr'
-// let url = 'https://api.ai.qq.com/fcgi-bin/ptu/ptu_facesticker'
-let url = 'https://api.ai.qq.com/fcgi-bin/face/face_detectface'
+// 人脸识别接口封装
+const md5 = require('./md5.js')
+const app_id = '2124093159'
+const app_key = 'xlKswRKKpUsBVdZs'
+const url = 'https://api.ai.qq.com/fcgi-bin/face/face_detectface'
 
 let ocrRequest = (base64Img, callback) => {
   let params = {
@@ -38,19 +37,16 @@ let ocrRequest = (base64Img, callback) => {
   })
 }
 
+// 生成请求密钥
 let _genRequestSign = (params) => {
-  // 1. 对请求参数按字典升序排序
   params = _sortObject(params)
-  // 2. 拼接键值对，value部分进行URL编码
   let paramStr = ''
   let keys = Object.keys(params)
   for (let idx in keys) {
     let key = keys[idx]
     paramStr += key + '=' + encodeURIComponent(params[key]) + '&'
   }
-  // 3. 拼接key
   paramStr += 'app_key=' + app_key
-  // 4. md5
   return md5.hexMD5(paramStr).toUpperCase()
 }
 
@@ -63,6 +59,7 @@ let _sortObject = (obj) => {
   return newObj
 }
 
+// 对返回数据进行精简，拿到人脸id，位置，原始图像大小
 let _formatResult = (res) => {
   console.log('ocr原始数据', res)
   let format = {}

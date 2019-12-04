@@ -1,18 +1,11 @@
+<!-- 欢迎页面 -->
 <view class='container'>
   <view class="logo"></view>
   <text class="slogan">好用的高校失物招领平台</text>
-
-  <!-- <button class='authorize' type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信登陆</button> -->
-
-
-
   <view class="authorize">
     <view class="padding-xl flex flex-direction">
-    <!-- <button class='cu-btn bg-theme lg' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">进入</button> -->
-
-    <button class='cu-btn bg-theme lg' bindtap="getSchool">马上使用</button>
-  </view>
-  <text class='tips'>基于AI的高校失物招领平台</text>
-
+      <button class='cu-btn bg-theme lg' bindtap="getSchool">马上使用</button>
+    </view>
+    <text class='tips'>基于AI的高校失物招领平台</text>
   </view>
 </view>
