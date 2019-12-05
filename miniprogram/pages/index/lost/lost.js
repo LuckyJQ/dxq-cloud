@@ -1,5 +1,6 @@
 import WxValidate from '../../../utils/validate.js'
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
+import Card from './palette'
 import {
   debounce
 } from '../../../utils/debounce.js'
@@ -105,7 +106,10 @@ Page({
       isrich: false,
       istop: false
     },
-    possibleData: []
+    possibleData: [],
+    // 打马相关
+    imgMosaic: null,
+    mosaicShow: false,
   },
 
   // 生成表单验证对象，检查是否选择学校
@@ -171,6 +175,7 @@ Page({
             ocrRequest(base64ImgData, {
               success(res) {
                 console.log(res)
+                let face_data = res
                 if (res.code == 10000) {
                   wx.hideLoading()
                   wx.showModal({
@@ -181,7 +186,22 @@ Page({
                     cancelText: '不打码',
                     success(res) {
                       if (res.confirm) {
-                        console.log('去手动打马了')
+                        console.log('AI手动打马了')
+
+                        that.setData({
+                          mosaicShow: true,
+                          template: new Card().palette({
+                            imgWidth: face_data.image_width + 'rpx',
+                            imgHeight: face_data.image_height + 'rpx',
+                            bg: filePath,
+                            width: face_data.face_pos_list[0].width + 'rpx',
+                            height: face_data.face_pos_list[0].height + 'rpx',
+                            left: face_data.face_pos_list[0].x + 'rpx',
+                            top: face_data.face_pos_list[0].y + 'rpx'
+                          })
+                        })
+
+
                       } else if (res.cancel) {
                         console.log('开始上传图片')
                         let index = filePath.lastIndexOf("/");
@@ -449,6 +469,28 @@ Page({
     this.setData({
       modalStatus: false
     })
+  },
+
+  onClose() {
+    this.setData({
+      mosaicShow: false
+    });
+  },
+
+  // 保存canvas绘制
+  saveImage() {
+    wx.saveImageToPhotosAlbum({
+      filePath: this.imagePath
+    })
+  },
+
+  onImgOK(e) {
+    this.imagePath = e.detail.path;
+    this.setData({
+      imgMosaic: this.imagePath
+    })
+    wx.hideLoading()
+    console.log(this.imagePath);
   }
 
 })

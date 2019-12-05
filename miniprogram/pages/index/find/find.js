@@ -109,11 +109,6 @@ Page({
   onLoad: function(options) {
     app.checkIfSelectedSchool()
     initValidate()
-
-
-
-
-
   },
 
   // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
@@ -164,12 +159,6 @@ Page({
                             top: face_data.face_pos_list[0].y + 'rpx'
                           })
                         })
-
-
-
-                        // wx.navigateTo({
-                        //   url: '/pages/index/mosaic/mosaic',
-                        // })
                       } else if (res.cancel) {
                         console.log('开始上传图片')
                         let index = filePath.lastIndexOf("/");

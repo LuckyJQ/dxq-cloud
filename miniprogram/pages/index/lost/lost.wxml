@@ -159,4 +159,19 @@
     </view>
   </view>
 
+
+  <view>
+    <van-popup show="{{ mosaicShow }}" position="bottom" bind:close="onClose">
+      <view class="share-box">
+        <view class="top solid-bottom">
+          <text>图片AI打马</text>
+        </view>
+        <image class="img shadow" src="{{imgMosaic}}" mode="widthFix"></image>
+        <button class='poster-button cu-btn round bg-theme' bind:tap='saveImage'>保存到本地</button>
+      </view>
+    </van-popup>
+  </view>
+  <painter class="hidden" customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
+
+  
 </view>

@@ -80,3 +80,32 @@ page {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+/* 马赛克弹出层样式 */
+.share-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.share-box .top {
+  width: 100%;
+  padding: 20rpx 0;
+}
+
+.share-box .img {
+  width: 400rpx;
+  /* height: 480rpx; */
+  margin-top: 30rpx;
+}
+
+.share-box .poster-button {
+  margin: 40rpx 0;
+}
+
+.hidden {
+  position: absolute;
+  left: -6000rpx;
+}
