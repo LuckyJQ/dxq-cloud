@@ -14,6 +14,7 @@
     "pages/index/school/school",
     "pages/square/search/search",
     "pages/my/backstage/backstage",
+    "pages/index/mosaic/mosaic",
     "pages/test/test"
   ],
   "window": {

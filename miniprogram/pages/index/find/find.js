@@ -1,5 +1,6 @@
 import WxValidate from '../../../utils/validate.js'
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast'
+import Card from './palette'
 import {
   ocrRequest
 } from '../../../utils/face_ocr.js'
@@ -78,6 +79,9 @@ Page({
     date: new Date().format("yyyy-MM-dd"),
     end_time: new Date().format("yyyy-MM-dd"),
     img: null,
+    imgMosaic: null,
+    mosaicShow: false,
+    template: {},
     multiIndex: [0, 0],
     multiArray: [
       ['卡证类', '非卡证类'],
@@ -105,6 +109,11 @@ Page({
   onLoad: function(options) {
     app.checkIfSelectedSchool()
     initValidate()
+
+
+
+
+
   },
 
   // 上传图片后先进行ai检测，如果有人脸提醒用户进行ai打马或者手动打马
@@ -130,6 +139,7 @@ Page({
             ocrRequest(base64ImgData, {
               success(res) {
                 console.log(res)
+                let face_data = res
                 if (res.code == 10000) {
                   wx.hideLoading()
                   wx.showModal({
@@ -141,6 +151,25 @@ Page({
                     success(res) {
                       if (res.confirm) {
                         console.log('去手动打马了')
+
+                        that.setData({
+                          mosaicShow: true,
+                          template: new Card().palette({
+                            imgWidth: face_data.image_width + 'rpx',
+                            imgHeight: face_data.image_height + 'rpx',
+                            bg: filePath,
+                            width: face_data.face_pos_list[0].width + 'rpx',
+                            height: face_data.face_pos_list[0].height + 'rpx',
+                            left: face_data.face_pos_list[0].x + 'rpx',
+                            top: face_data.face_pos_list[0].y + 'rpx'
+                          })
+                        })
+
+
+
+                        // wx.navigateTo({
+                        //   url: '/pages/index/mosaic/mosaic',
+                        // })
                       } else if (res.cancel) {
                         console.log('开始上传图片')
                         let index = filePath.lastIndexOf("/");
@@ -432,6 +461,28 @@ Page({
         console.log(err)
       }
     })
+  },
+
+  onClose() {
+    this.setData({
+      mosaicShow: false
+    });
+  },
+
+  // 保存canvas绘制
+  saveImage() {
+    wx.saveImageToPhotosAlbum({
+      filePath: this.imagePath
+    })
+  },
+
+  onImgOK(e) {
+    this.imagePath = e.detail.path;
+    this.setData({
+      imgMosaic: this.imagePath
+    })
+    wx.hideLoading()
+    console.log(this.imagePath);
   }
 
 

@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-    "van-toast": "vant-weapp/toast"
+    "van-toast": "vant-weapp/toast",
+    "loading": "/components/loading/index",
+    "van-popup": "vant-weapp/popup",
+    "painter": "/components/painter/painter"
   }
 }

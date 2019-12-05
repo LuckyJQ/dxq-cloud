@@ -70,11 +70,6 @@
     </view>
 
 
-
-
-
-
-
     <view wx:if="{{multiIndex[0]===1}}">
       <view class="cu-form-group">
         <view class='title '>物品名称</view>
@@ -91,7 +86,7 @@
             <text class='icon-cameraadd '></text>
           </view>
           <view class="solids upload-img-button" wx:if="{{hideAdd}}">
-            <image src="{{img}}" mode="widthFix" ></image>
+            <image src="{{img}}" mode="widthFix"></image>
             <view class="mask"></view>
             <text class="icon-deletefill close-button" bindtap="removeImg"></text>
           </view>
@@ -132,4 +127,19 @@
     </view>
     <van-toast id="van-toast" />
   </form>
+
+
+  <view>
+    <van-popup show="{{ mosaicShow }}" position="bottom" bind:close="onClose">
+      <view class="share-box">
+        <view class="top solid-bottom">
+          <text>图片AI打马</text>
+        </view>
+        <image class="img shadow" src="{{imgMosaic}}" mode="widthFix"></image>
+        <button class='poster-button cu-btn round bg-theme' bind:tap='saveImage'>保存到本地</button>
+      </view>
+    </van-popup>
+  </view>
+  <painter class="hidden" customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
+
 </view>
